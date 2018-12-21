@@ -1,0 +1,29 @@
+\begin{header}
+Apache Cordova
+\end{header}
+
+The \href{https://cordova.apache.org}{Apache Cordova} is one of the best known technologies to create modern cross-platform mobile applications. This framework allows to create applications using standard HTML5 technologies stack in order to build mobile apps for Android and iOS mobile devices. The requirements for developer is the knowledge of classical technologies like html, css and JavaScript.
+
+In order to begin work with Cordova environment we have to install \href{http://nodejs.org}{Node.js} application. \begin{warning} This will require administrator privileges on the system.\end{warning} The Node.js environment contains npm - nodejs packet manager that allow to install new packages/application into our system. Using npm we can easily install Cordova by writing in command line:
+
+\begin{code}
+npm install -g cordova
+\end{code}
+
+This -g switch will install cordova for all users, if one wants to install Cordova only for active user we can omit -g parameter.
+
+Now we are ready to create first Cordova app, for that let us create a new directory somewhere in the system and go into this folder.
+
+\begin{code}
+mkdir CordovaApps \\
+cd CordovaApps
+\end{code}
+
+Now we should invoke command:
+\begin{code}
+cordova create FirstCordovaApp
+\end{code}
+
+This will create an folder with prepared template of Cordova application. The prepared folder contain few subfolders the most important from the point of view of game developer is www. The rest of subfolders we can treat as internal Cordova folder and let them be.
+
+

@@ -1,0 +1,36 @@
+\documentclass{book}
+\usepackage{graphicx}
+\usepackage{amsmath}
+%\usepackage{pdflscape}
+%\usepackage{afterpage}
+%\usepackage{changepage}
+%\usepackage{caption}
+%\usepackage{rotating} %for sidewisetable
+%\usepackage{makecell}
+%\usepackage{boldline}
+
+% włączenie polskich znaków
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{framed}
+
+
+\newenvironment{header}{\bgroup\Large}{\egroup}
+
+\newenvironment{code}{
+    \par\medskip
+    \begin{framed}
+    \noindent\ignorespaces
+}
+{
+    \end{framed}
+    \medskip 
+}
+
+\newenvironment{warning}{\bgroup \color{red} }{\egroup}
+
+
+\begin{document}
+\input{chapters/chapter1.tex}
+\end{document}
