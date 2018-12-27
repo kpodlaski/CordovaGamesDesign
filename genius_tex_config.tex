@@ -150,6 +150,21 @@
   listing file=#2
 }
 
+\newtcblisting{php}[1][]{
+  listing only,
+  breakable,
+  colframe=cyan,
+  colback=cyan!10,
+  %title=#1,
+  listing options={
+    language=PHP,
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    columns=fullflexible,
+  },
+  #1
+}
+
 \newtcbinputlisting{\phpfile}[3][]{%
   listing only,
   breakable,
@@ -184,7 +199,7 @@
   #1
 }
 
-\newtcbinputlisting{\bashfile}[3][]{%
+\newtcbinputlisting{\shellfile}[3][]{%
   listing only,
   breakable,
   colframe=cyan,
