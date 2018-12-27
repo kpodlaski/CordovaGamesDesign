@@ -1,0 +1,156 @@
+\chapter{Introduction to jQuery }
+
+Before we start with Mobile Application development let us first introduce a very well known and usefull library jQuery. Here we will cover some basics of jQuery library and how to use it for simple internet queries. The jQuery library basically can be used to do following operations:
+\begin{itemize}
+\item Manipulation of HTML/DOM elements in a web application.
+\item Manipulation of CSS properties/elements in a web application.
+\item Operations connected to HTML events.
+\item Simple effects and animations in a web application.
+\item AJAX operations.
+\end{itemize}
+
+
+
+\section{Include jQuery into a project}
+The jQuery can be included int our project in two simple ways:
+\begin{itemize}
+\item As external resource,
+\item As internal resource,
+\end{itemize}
+
+The difference is only on loading time and requirements of available internet connectivity.
+\begin{html}
+<!-- Use External jQuery from Google CDN -->
+<script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<!-- Use External jQuery from Microsoft CDN -->
+<script type="text/javascript"
+    src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js">
+</script>
+<!-- Use Internal copy of jQuery library -->
+<script type="text/javascript"
+    src="js/jquery-3.3.1.min.js">
+</script>
+\end{html}
+As for Cordova javascript elements we will put one of this at the end of <body> section of web page. At this moment 3.3.1 is the newest version of jQuery, however everybody can use the version of own choose. The library files are usually available in two versions jquery-3.3.1.js and jquery-3.3.1.min.js, the former is bigger and is made especially for developers to analyse while the latter is smaller and unreadable for people because all unneeded space characters are omitted, this version is preferred as it requires shorter time to load and smaller bandwidth.
+
+\section{Selector operator}
+One of the most important element introduced in jQUery is selection operator \$, this is an shortcut to original javascript selection methods like getElementById or querySelector.
+
+\jsfile{chapters/code_samples/chapter_jquery_intro/code1.js}
+
+With use of selector we can easily operate on DOM elements of our web pages. DOM - Document Object Model - an object representation of html document and its elements. However, we have to remember jQuery selector is not exactly document.getElementById operation, by default selector wraps all elements that fits the pattern so it is more like the list of appropriate objects than a single object. That means selector has no direct access to all object methods. In order to get a DOM object from selector we should use direct request of list element like in the following code:
+
+\begin{js}
+var el = document.getElementById("some_id");
+//Equivalent operation with use of jQuery selector
+var el = $("#some_id")[0];
+\end{js}
+
+
+\section{Add simple actions when page is load}
+When a selector gives an object we can bind operations to events connected with this object. For example object "document" - that represents the web page have an event onLoad. This event is fired whenever  the browser finish loading page with all required additional files.
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/code2.html}
+
+\begin{explain}
+Just for simplicity this time all js code was simply included inside .html file. In the line 10 we can see selector \$('document') and then an definition what should happen when page is 'ready' event is fired.
+\begin{js}
+	$(document).ready(
+\end{js}
+
+Inside "ready(...)" we define a new anonymous function that will be bind to 'ready' event. The function is anonymous as it is a method that will be used in one place and no name is needed. Anonymous functions are usually defined as:
+\begin{js}
+ function() { ...} //anonymous function without parameters
+ function(par1, par2) { ...} //anonymous function with two parameters par1 and par2
+\end{js}
+
+In this new function in the line 13 we can see that to all <button> elements we add a function that hides this button. An operation .hide comes from jQuery and allow to make elements invisible.
+
+\begin{js}
+$("button").click(function(){
+    $(this).hide();
+});
+\end{js}
+
+In the result when page is loaded the actions are added to all three buttons separately. When each of the buttons is clicked it hides.
+
+
+\end{explain}
+
+It it obvious that if in jQuery we have hide operation, there have to be also a show one
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/code3.html}
+
+\begin{explain}
+We add anonymous function to click event for both buttons "btn1" and "btn2" in the lines 15 and 19 respectively. in both of this methods we show or hide the element <img>.
+\end{explain}
+
+\begin{extercises}
+Starting with the webpage of the form
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/ex1.html}
+
+Add the following functionalities:
+\begin{itemize}
+\item When user click on the button "Show Julius Caesar" the photo of the Caesar is shown
+\item When user click on the button "Show All" every hidden elements are shown
+\item When user click on the button "Hide all again" all elements back to the original state.
+\end{itemize}
+\end{extercises}
+
+In the next example we will see that a similar jQuery method called toggle, can be used show the visible elements and hide invisible ones.
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/code4.html}
+
+\begin{explain}
+At the start one of the <p> elements is hidden as in line 14  we set style to display:none state.
+\begin{html}
+<p id="Stanza2" style="display:none">
+\end{html}
+Here in the line 27 we invoke toggle method on all <p> element. This will toggle elements between two states hidden and shown.
+\end{explain}
+
+Additional jQuery actions like slideDown, slideUp, slideToggle allows similar operations but as animated action not instant ones.
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/code5.html}
+
+\begin{extercises}
+Within the last code change methosd slideDown, slideUp, slideToggle into new operations: fadeIn, fadeOut, fadeToggle.
+\end{extercises}
+
+\begin{extercises}
+All of the animation operations can have additional time parameters (in miliseconds), test how it changes the original behaviour.
+\begin{js}
+.hide(300),
+.slideDown(300),
+.fadeOut(300)
+\end{js}
+
+
+There are also predefined speeds 'slow', 'fast', 'normal':
+\begin{js}
+.show('fast')
+\end{js}
+\end{extercises}
+
+\subsection{Other actions}
+jQuery introduces more operations like click, these are dblclick, mouseover, mouseout. And additionally more sophisticated animation driven by changes in the style of the element
+
+\htmlfile{chapters/code_samples/chapter_jquery_intro/code6.html}
+
+\begin{explain}
+  As we can see during animate operation the browser create an animation between two styles
+  \begin{js}
+    width: "55%",
+    opacity: 0.7,
+    fontSize: "2em",
+  \end{js}
+   and
+  \begin{js}
+    fontSize: "1em",
+  \end{js}
+
+This animation requires change of width, size of the font and opacity.
+\end{explain} 

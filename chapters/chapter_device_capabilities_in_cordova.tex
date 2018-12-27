@@ -1,0 +1,121 @@
+\chapter{Device capabilities}
+
+The Cordova environment allows to create a mobile applications using html5 technology stack. However it is obvious that capabilities of the mobile device (smartphone, tablet) are not the same as the browser. In the Cordova all specific functionalities of the device are solved as plugins to the platform. For example in order to use camera functionality inside our game we have to add appropriate plugin to our project and then with additional js objects/methods we can control the camera build in the device. In this course we will cover how to use: camera, accelerometer/giroscope, gps. The information about actual plugins can be found in Cordova documentation \url{https://cordova.apache.org/plugins/}.
+
+\section{Camera}
+As was mentioned in order to use a build in camera we have to add appropriate plugin. This plugin add to the cordova environment appropriate objects/methods that allow control of the camera via javascript operations \url{https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html}. In order to add a plugin we have to invoke the following shell command inside the project folder
+
+\begin{shell}
+cordova plugin add cordova-plugin-camera
+\end{shell}  
+
+The camera will be visible as a special js object navigator.camera, this object will be initiated just before 'deviceready' event is fired. Suppose we would like just to take a picture and show it on the screen of the phone. 
+
+Our html file will be very simple:
+
+\htmlfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code1.html}
+
+The js file have the form:
+
+\jsfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code1.js}
+
+\begin{explain}
+  The js file needs a little of explanation.
+  The object camera\_options (line 9) defines the properties of the camera, for details see plugin documentation \url{https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html#cameracameraoptions--object}. In order to take a photo one has to use method navigator.camera (line 16) with appropriate callback functions for success and failure events. 
+  
+  In the method onSuccess one can notice the strange value of image.src, this value is just a jpeg image encoded to base64 string representation. (line 22).
+  
+\end{explain}
+ \subsection{QRCode in Cordova}
+ 
+ In many of contextual games a player is required to prove his achievement or position in external game context. This operation can be fulfilled via gps coordinates, or scanning nfc tag, qrcode. As we know how to take a picture, we can now use camera for scanning QRCode. There are many solutions that can help us decode QRCode into text, in this course we will use \url{https://github.com/LazarSoft/jsqrcode}. This is a simple javascript library, this solution works even in offline mode. In order to use Javascript QRCode scanner  we need to download from repository .js files and include them to our project. For sake of readability we store them in the folder www/js/qrdecoder/ of our Cordova project and add lines below into index.html.
+ 
+\begin{html}
+<script type="text/javascript" src="js/qrdecoder/grid.js"></script>
+<script type="text/javascript" src="js/qrdecoder/version.js"></script>
+<script type="text/javascript" src="js/qrdecoder/detector.js"></script>
+<script type="text/javascript" src="js/qrdecoder/formatinf.js"></script>
+<script type="text/javascript" src="js/qrdecoder/errorlevel.js"></script>
+<script type="text/javascript" src="js/qrdecoder/bitmat.js"></script>
+<script type="text/javascript" src="js/qrdecoder/datablock.js"></script>
+<script type="text/javascript" src="js/qrdecoder/bmparser.js"></script>
+<script type="text/javascript" src="js/qrdecoder/datamask.js"></script>
+<script type="text/javascript" src="js/qrdecoder/rsdecoder.js"></script>
+<script type="text/javascript" src="js/qrdecoder/gf256poly.js"></script>
+<script type="text/javascript" src="js/qrdecoder/gf256.js"></script>
+<script type="text/javascript" src="js/qrdecoder/decoder.js"></script>
+<script type="text/javascript" src="js/qrdecoder/qrcode.js"></script>
+<script type="text/javascript" src="js/qrdecoder/findpat.js"></script>
+<script type="text/javascript" src="js/qrdecoder/alignpat.js"></script>
+<script type="text/javascript" src="js/qrdecoder/databr.js"></script>
+\end{html} 
+
+After that we change onSuccess method in our index.js into:
+\begin{js}
+onSuccess: function(imageData) {
+		var image = $("#taken_photo")[0];//document.getElementById("taken_photo");
+		image.src = "data:image/jpeg;base64," + imageData;
+
+		qrcode.callback = function(decodedData) {
+			console.log(JSON.stringify(decodedData));
+		}
+		var _qr1 = qrcode.decode(image.src);	
+	}
+\end{js}
+
+\begin{explain}
+  In the code we have only two new elements: 
+  \begin{itemize}
+  \item start decode operation qrcode.decode(image.src) 
+  \item definition of an anonymous callback function what to do with decoding result, in the example we just print the response on javascript console. As usual this method will be invoked when decoding process ends.
+  \end{itemize}
+\end{explain}
+
+\begin{remark}
+For testing purposes we need to create a QRCode with some information. There are many free solutions in the Internet, you need to find one using preferred search engine.
+\end{remark}
+
+\section{Accelerometer}
+In some of the games developers prefer to use accelerometer or gyroscope as control mechanism. In previous versions of Cordova one needs to install device-motion plugin. However, lately the general Device Motion and Orientation API \url{https://www.w3.org/TR/2016/CR-orientation-event-20160818/} has been implemented in all of the most important mobile platform and Cordova plugin is depreciated. Therefore, as suggested we will use mentioned API. 
+
+As usual we will start from basic COrdova project and add accelerometer capabilities. In simple example we will place the ball in the center of the screen and move it using Motion/Orientration capability.
+
+The Motion and Orientation API provides two types of event deviceorientation and devicemotion, whitch of these two are aviable depend on the real device. In this example we will use only orientation - as this can be emulate in developer tools of chrome browser \url{https://developers.google.com/web/tools/chrome-devtools/device-mode/#orientation}. As always let us start with simple html file:
+
+\htmlfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code2.html}
+
+\jsfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code2.js}
+
+\begin{explain}
+The html file is simple, the one extra element is the <img id="ball\_img"> object for our moving ball. In the js file we should initiate listeners for Orientation and Motion events (lines 9 and 10). In order to have an animation we have app.x, app.y, app.vx and app.vy variables that contains position coordinates (x,y) and velocity vector (vx,vy) (lines 11-14). At the end of onDeviceReady method we start infinite loop of our scene animation. During an animation frame we update position using velocity (lines 36, 37), later set the new position to bal\_img object (lines 38, 39) and bouncing the ball from imaginary borders (lines 40, 41).
+
+Whenever the device change orientation the handleOrientation method is invoked, inside we change velocity vx, vy according to the orientation parameters alpha, beta (lines 23, 24). If the device support Motion API the method handleMotion will be invoked with movement.
+\end{explain}
+
+\begin{extercises}
+Please use the example maze game created in \ref{CordovaAndJavascriptGame} and add the orientation style of control to the game.
+\end{extercises}
+
+\section{Geolocation}
+
+As usual in order to have geolocation functionality we have to add appropriate plugin by running in the project folder the shell command:
+
+\begin{shell}
+cordova plugin add cordova-plugin-geolocation
+\end{shell}
+
+This plugin adds to our Cordova environment three methods: navigator.geolocation.getCurrentPosition, navigator.geolocation.watchPosition, navigator.geolocation.clearWatch \url{https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html}. The first method is used for one time check of the location of the device. The second one can be use to start semi-continuous watching, the watching invoke an event whenever the position changes. The last method stops the watching activity.
+
+As usual let us start with basic Cordova project with simple html:
+
+\htmlfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code3.html}
+
+\jsfile{chapters/code_samples/chapter_device_capabilities_in_cordova/code3.js}
+
+\begin{explain}
+The html is very simple and no explanations are needed. In the js file we should notice the object that contains options for position detection location\_options. In line 11 the one time location query is invoked, later in lines 13-15 the position watching is starting (with 1 second timeout). Watching activity should stop after 60 seconds (lines 16-20). Whenewer the location is obtained onPositionSuccess method is invoked. Here we obtain position and show to the user.
+\end{explain}    
+
+\begin{extercises}
+  In the Cordova documentation of Geolocation \url{https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html} reader can find a few examples of its usage (Weather forecast, Google Maps with location, find poi or pictures nearby. Please try them yourself.
+\end{extercises}

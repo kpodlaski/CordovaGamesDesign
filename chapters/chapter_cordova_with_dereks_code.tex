@@ -1,0 +1,101 @@
+\chapter{Cordova and JavaScript games}\label{CordovaAndJavascriptGame}
+
+You already learned about JavaScript games in browser and Cordova environment. Cordova allows to run html/scc and js code on mobile devices. In this module we will cover how to use the basic game code from previous modules within Cordova environment. In this module we will take one of Canva %Derek's 
+basic JavaScript game and run this inside Cordova. As the starting point we take \url{http://geniusgamedev.eu/canvas/canvas/exampleCode/maze_game.html}. This example contains a few files: maze\_game.html, and a set of js, css and png files. At the start let's create basic Cordova project (as was described in previous section). After that combine cordova index.html file with maze\_game.html. Beginning with <head> section of both files we join them into one code:
+
+\begin{html}
+<head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>GENIUS worked example</title>
+        <link rel="shortcut icon" type="image/png" href="images/genius_icon.png"/>
+        <link href="css/game.css" rel="stylesheet" type="text/css"/>
+    </head>
+\end{html}
+
+We move all links to javaScript files to the end of <body> section. Now let us integrate both <body> sections.
+
+\begin{html}
+<body>
+    <div class="app">
+        <div id="gameContainer">
+           <canvas id="gameCanvas" tabindex="1"></canvas>
+           <p>Use the arrow keys to change the direction that the skeleton walks.</p>
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <script src="js/CanvasGame.js" type="text/javascript"></script>
+    <script src="js/GameObject.js" type="text/javascript"></script>
+    <script src="js/index.js" type="text/javascript"></script>
+
+    <script src="js/MazeCanvasGame.js" type="text/javascript"></script>
+    <script src="js/StaticImage.js" type="text/javascript"></script>
+    <script src="js/Skeleton.js" type="text/javascript"></script>
+    <script src="js/MazeSkeleton.js" type="text/javascript"></script>
+    <script src="js/StaticText.js" type="text/javascript"></script>
+
+
+    <script src="js/maze_game.js" type="text/javascript"></script>
+
+</body>
+\end{html}
+Now we are left with two js/index.js files, one from Cordova core, the second from Canva game example, these two have to be integrated. As the Canva game file is much more compliacted and already have Cordova in mind, we can just replace the Cordova js/index.js file with the one from Canvas game. 
+
+Now we have to decide how we can move the robot. In the original version the keyboard arrows are used, while on mobile devices this is not acceptable method of control. The simplest approach would be to add four appropriate buttons to the game. For that we add four buttons UP, DOWN, LEFT, RIGHT just under the <canvas>. The final .html file will have the form:
+
+\htmlfile{chapters/code_samples/chapter_cordova_with_dereks_code/index.html}
+
+In original Canvas game the code connected with moving the robot was inside the file: js/maze\_game.js:
+\begin{js}
+/* If they are needed, then include any game-specific mouse and keyboard listners */
+    document.addEventListener('keydown', function (e)
+    {
+        if (e.keyCode === 37)  // left
+        {
+            gameObjects[SKELETON].setDirection(LEFT);
+        }
+        else if (e.keyCode === 38) // up
+        {
+            gameObjects[SKELETON].setDirection(UP);
+        }
+        else if (e.keyCode === 39) // right
+        {
+            gameObjects[SKELETON].setDirection(RIGHT);
+        }
+        else if (e.keyCode === 40) // down
+        {
+            gameObjects[SKELETON].setDirection(DOWN);
+        }
+    });
+\end{js}
+
+We have to replace this code that uses arrows with the code that operates with created buttons:
+
+\begin{js}
+document.getElementById("up_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(UP);
+	});
+document.getElementById("down_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(DOWN);
+	});
+document.getElementById("left_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(LEFT);
+	});
+document.getElementById("right_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(RIGHT);
+	});
+\end{js}
+
+After all this operations we have obtained the Cordova version of chosen Canvas game.
+
+\begin{extercises}
+  The buttons with arrows do not fit to the graphic style of the game, add some images of arrows and use them for control instead of the buttons.
+  Change the size of the background in order to have arrows above image green background.
+\end{extercises}
+
+
+
+

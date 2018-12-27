@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+<body>
+<img id="tiger_img" src="https://tinyurl.com/y7ts3v7o" height="150">
+<hr/><hr/>
+<div style="color: #00ff00">
+	Tyger Tyger, burning bright, <br>
+	In the forests of the night; <br>
+	What immortal hand or eye,  <br>
+	Could frame thy fearful symmetry?
+</div>
+
+<script type="text/javascript" 
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(document).ready(function(){			
+				$("#tiger_img").mouseover(function(){
+						$("div").animate({
+						width: "55%",
+						opacity: 0.7,
+						fontSize: "2em", 
+						}, 1500);
+				});
+				
+				$("#tiger_img").mouseout(function(){
+						$("div").animate({
+						fontSize: "1em", 
+						}, 300);
+				});
+				
+										 
+			});
+		
+	});
+</script>
+
+
+</body>
+</html>
