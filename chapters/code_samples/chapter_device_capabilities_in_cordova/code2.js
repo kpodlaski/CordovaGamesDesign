@@ -6,13 +6,11 @@ var app = {
 
     onDeviceReady: function() {
         /* Start motion api */
-		window.addEventListener("deviceorientation", this.handleOrientation, true)
-		window.addEventListener("devicemotion", this.handleMotion, true);
-		this.vx=1;
-		this.vy=1;
-		this.x=30;
-		this.y=30;
-		setInterval(this.animation, 10);
+		window.addEventListener("deviceorientation", this.handleOrientation.bind(this), true)
+		window.addEventListener("devicemotion", this.handleMotion.bind(this), true);
+		var ball_img = document.getElementById("ball_img");	
+		this.ball = new Ball(30,30,1,1, 300, 300, ball_img);
+		this.ball.startAnimation();
     },
 	
 	handleOrientation: function (event) {
@@ -20,8 +18,8 @@ var app = {
 		console.log("Beta: "+event.beta);
 		console.log("Gamma:"+event.gamma);
 		console.log("Absolute:"+event.absolute);
-		app.vx = event.alpha/5+1;
-		app.vy = -event.gamma/5;
+		this.ball.vx = event.alpha/5+1;
+		this.ball.vy = -event.gamma/5;
 	},
 
 	handleMotion: function (event) {
@@ -30,16 +28,6 @@ var app = {
 		console.log("Acceleration:"+event.acceleration);
 		console.log("Acceleration with G:"+event.accelerationIncludingGravity);
 	},
-	
-	animation : function(){
-		ball = document.getElementById("ball_img");		
-		app.x+=app.vx;
-		app.y+=app.vy;
-		ball.style.left=app.x+"px";
-		ball.style.top=app.y+"px";
-		if (app.x<0 || app.x>300) app.vx*=-1;
-		if (app.y<0 || app.y>300) app.vy*=-1;
-	}
 };
 
 app.initialize();

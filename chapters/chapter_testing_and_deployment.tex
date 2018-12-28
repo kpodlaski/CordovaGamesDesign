@@ -1,0 +1,51 @@
+\chapter{Testing and deployment}
+
+The testing and deployment of Cordova application is not sophisticated task. At first we can always use a browser platform. In this way we can easily test most of the applications, and using chrome and its developer tools we can test most functionalities of our application. When the developer thinks about more sophisticated issues he/she can always use ripple simulator. For that we just need to install the simulator using npm:
+
+\begin{shell}
+npm install -g cordova-simulate
+\end{shell}
+
+and after that we need to run inside the project folder the command:
+
+\begin{shell}
+cordova platform add android
+simulate android
+\end{shell}
+
+or for iOS simulation
+  
+\begin{shell}
+simulate ios
+\end{shell}
+
+In that case in the browser opens two pages, one for our application and in next tab the control panel of the emulator, here we can set all properties of the simulated environment.
+
+\includegraphics[width=\textwidth]{chapters/img/simulator_screen.png}
+
+When developer need to test on real device, the application have to be build for appropriate platform. For android the commands are:
+
+\begin{shell}
+cordova platform add android
+cordova build android
+\end{shell}
+
+\begin{remark}
+This operation require to configure android SDK (android studio)
+\end{remark}
+
+The exemplary output can look like this:
+\shellfile{chapters/code_samples/chapter_testing_and_deployment/build.txt}
+
+After a rather long output we should see the information that our apk file was created:
+\begin{shelloutput}
+BUILD SUCCESSFUL in 3m 26s 
+48 actionable tasks: 48 executed
+Built the following apk(s): D:\Users\Krzysztof Podlaski\Documents\Uniwerek\GENIUS\didactic_courses\Cordova_mobile_games\code\UIExamples\platforms\android\app\build\outputs\apk\debug\app-debug.apk
+\end{shelloutput}
+
+The resulting .apk file can be moved to android device and run there, or run in any simulator like (SDK simulator, bluestack etc.).
+
+
+
+

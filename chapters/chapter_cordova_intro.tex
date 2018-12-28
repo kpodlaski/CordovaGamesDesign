@@ -82,11 +82,11 @@ Let us now look into js/index.js file
 \jsfile{chapters/code_samples/chapter_cordova_intro/code3.js}
 
 \begin{explain}
-How it works: when the page is finally loaded the Cordova environment fire an event 'deviceready', this implies that binded method onDeviceReady is invoked. In the result the method receivedEvent is started with appropriate value of parameter id. In this method the elements with class "listening" becomes invisible while the one with "received" becomes visible.
+How it works: when the page is finally loaded the Cordova environment fire an event 'deviceready', this implies that bind method onDeviceReady is invoked. In the result the method receivedEvent is started with appropriate value of parameter id. In this method the elements with class "listening" becomes invisible while the one with "received" becomes visible.
 
 Explanation line by line:
 \begin{description}
-\item{line 3:} As we can see in the line 3 the method onDeviceReady is binded to the event 'deviceready'.
+\item{line 3:} As we can see in the line 3 the method onDeviceReady is bind to the event 'deviceready'.
 \item{line 7:} Run method receivedEvent with parameter id = 'deviceready'
 \item{line 11:} Find in the html document the element with id = 'deviceready', store it as parentElement
 \item{line 12:} Find all child nodes of parentElement the ones with class "listening", store it as listeningElement
@@ -111,6 +111,7 @@ As was mentioned Cordova environment uses a special event 'deviceready'. By defa
 'volumeupbutton':& The event fires when the user presses the volume up button.\\
 \end{tabularx}
 
+It should be noted that Cordova prefers SPA architecture (Single Page Applications) i.e. there is only one url address, all changes of the interface are done within one javascript file and using ajax queries.
 
 
 

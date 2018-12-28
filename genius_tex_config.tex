@@ -199,6 +199,22 @@
   #1
 }
 
+\newtcblisting{shelloutput}[1][]{
+  listing only,
+  breakable,
+  colframe=cyan,
+  colback=black,
+  colupper=white,
+  %title=#1,
+  listing options={
+    language=sh,
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    columns=fullflexible
+  },
+  #1
+}
+
 \newtcbinputlisting{\shellfile}[3][]{%
   listing only,
   breakable,
@@ -226,4 +242,4 @@
 {
     \end{framed}
     \medskip
-}
+} 

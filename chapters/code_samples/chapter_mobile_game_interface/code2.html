@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>Stationary VJoy App</title>
+    </head>
+    <body>
+        <div class="app">
+            <div id="ball_container" width="300" height="300" >
+				<img id="ball_img" src="img/ball.png" width="30" height="30" style="position:absolute; left:10; top:10">
+            </div>
+			<canvas id="vjoy_canvas" style="position:absolute; top:250px; left: 8px;" width="51" height="51"  ></canvas>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/Ball.js"></script>
+		<script type="text/javascript" src="js/VJoy.js"></script>
+        <script type="text/javascript" src="js/code2.js"></script>
+    </body>
+</html>

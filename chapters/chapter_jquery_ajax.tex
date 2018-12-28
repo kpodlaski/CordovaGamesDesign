@@ -1,6 +1,6 @@
 \chapter{AJAX queries using jQuery }
 
-Now let us work on AJAX requests using jQuery. The AJAX is an abbreviation for \textbf{A}synchronious \textbf{J}avascript \textbf{A}nd \textbf{X}ml. This technology allows to send (and receive) information from external sources via asynchronous queries. Usually the data send back and forth is in JSON (\textbf{J}ava\textbf{S}cript \textbf{O}bject \textbf{N}otation) form. In most of the situations webpages using javascript operations send queries to so called REST services.
+Now let us work on AJAX requests using jQuery. The AJAX is an abbreviation for \textbf{A}synchronous \textbf{J}avascript \textbf{A}nd \textbf{X}ml. This technology allows to send (and receive) information from external sources via asynchronous queries. Usually the data send back and forth is in JSON (\textbf{J}ava\textbf{S}cript \textbf{O}bject \textbf{N}otation) form. In most of the situations webpages using javascript operations send queries to so called REST services.
 
 \section{RESTful services}
 As usual nowadays most of internet services provide so called REST services. This type of services allows us to invoke basic CRUD operations (\textbf{C}reate, \textbf{R}ead, \textbf{U}pdate, \textbf{D}elete). REST API usually allows 4 basic types of http queries GET, POST, PUT and DELETE on so called resources. These operations are usually connected with operations on the resources identified by url. For example GET is a Read or show the resource, POST and PUT are Create or Update the resource, meaning of DELETE is obvious. There is no canonical way for distinction of two operations POST and PUT (i.e. every API developer defines when POST or PUT should be used). I suggest to use POST as Create and PUT as Update.
@@ -13,7 +13,7 @@ Here we have sample documentation of our test API service:
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 &\textbf{Get selected record}\\\hline
-ULR &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
+URL &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
 Method  & GET\\\hline
 Parameters  & id - id of the record \\\hline
 Request Data & None\\\hline
@@ -33,7 +33,7 @@ Response Data & record object:\\
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 &\textbf{Get all records}\\\hline
-ULR &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php}\\\hline
+URL &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php}\\\hline
 Method  & GET\\\hline
 Parameters  & None \\\hline
 Request Data & None\\\hline
@@ -52,7 +52,7 @@ Response Data & record object:\\
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 &\textbf{Add new record}\\\hline
-ULR &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php}\\\hline
+URL &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php}\\\hline
 Method  & POST\\\hline
 Parameters  & None \\\hline
 Request Data & new record object\\
@@ -82,7 +82,7 @@ Response Data & record object:\\
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 &\textbf{Update a record}\\\hline
-ULR &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
+URL &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
 Method  & PUT\\\hline
 Parameters  & id - id of the record tu update \\\hline
 Request Data & new record object\\
@@ -112,7 +112,7 @@ Response Data & record object:\\
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 &\textbf{Delete selected record}\\\hline
-ULR &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
+URL &   \url{http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id} or \url{http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id}\\\hline
 Method  & DELETE\\\hline
 Parameters  & None \\\hline
 Request Data & None\\\hline
@@ -139,7 +139,7 @@ At first let us create base for our web rest client.
 
 \htmlfile{chapters/code_samples/chapter_jquery_ajax/code1.html}
 
-and statring js file
+and starting js file
 
 \jsfile{chapters/code_samples/chapter_jquery_ajax/code1.js}
 
@@ -230,7 +230,7 @@ function add_record_to_table(data){
 \end{js}
 
 \begin{explain}
-In order to add a new row in our table we create a new\_row object and each cell for 'id', 'name', 'score' and delete button separetely, and append each new cell to a new\_row object. After that we append the new\_row object to existing table and bind a new anonymous function to created button. During erasure we will need id of record to delete from server and the row to get rid off.
+In order to add a new row in our table we create a new\_row object and each cell for 'id', 'name', 'score' and delete button separately, and append each new cell to a new\_row object. After that we append the new\_row object to existing table and bind a new anonymous function to created button. During erasure we will need id of record to delete from server and the row to get rid off.
 \end{explain}
 
 The method deleteRecord can have the form:
@@ -319,7 +319,7 @@ The PUT ajax query is very similar to the ones we have already created. And the 
 \end{extercises}
 
  \subsection{Server code}
- The php is not a part of this course, however we have used an examplary REST server. In order to run appended scripts one have to install WWW server. This examples were tested on Apache server on linux machine and XAMPP instalation on Windows 10. The server contains only two files: score.php - connected to database CRUD operations and rest.php - operates on http REST requests.
+ The php is not a part of this course, however we have used an exemplary REST server. In order to run appended scripts one have to install WWW server. This examples were tested on Apache server on linux machine and XAMPP installation on Windows 10. The server contains only two files: score.php - connected to database CRUD operations and rest.php - operates on http REST requests.
 
  \phpfile{chapters/code_samples/chapter_jquery_ajax/score.php}
 
