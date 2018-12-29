@@ -178,13 +178,13 @@ This time we would like our virtual Joy to appear at the place of touchstart and
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/DynamicVJoy.js}
 
 \begin{explain}
-The class contains a two new methods tochStarta and touchStop. The first one sets the new position of interface wrapping canvas, shows this wrapping canvas and uses known from previous example VJoy class implementation of update method. The touchStop method just hide the wrapping canvas.
+The class contains a two new methods touchStart and touchEnd. The first one sets the new position of interface wrapping canvas, shows this wrapping canvas and uses known from previous example VJoy class implementation of update method. The touchEnd method just hide the wrapping canvas.
 \end{explain}
 
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/code3.js}
 
 \begin{explain}
-The main js file differs by creation od VJoy field (line 12) the new class DynamicVJoy is used instead of VJoy. There are also a new bindings of handler for touchstart and touchstop events. Both handlers uses methods of the new derived class DynamicVJoy.
+The main js file differs by creation od VJoy field (line 12) the new class DynamicVJoy is used instead of VJoy. There are also a new bindings of handler for touchstart and touchend events. Both handlers uses methods of the new derived class DynamicVJoy.
 \end{explain}
 
 \htmlfile{chapters/code_samples/chapter_mobile_game_interface/code3.html}
@@ -192,4 +192,47 @@ The main js file differs by creation od VJoy field (line 12) the new class Dynam
 \begin{explain}
 In the html file we have only few changes, the firs one is to make vjoy\_canvas invisible at the start (display:none). Additionally in line 20 we add a new file DynamicVJoy.js and in next line a new main .js file is included.
 \end{explain}
+
+\section{Catapult type control}
+
+We all know the game angry birds, In that game the control used something like a catapult mechanics, player using continous touch define the velocity vector of bird and a end of touch event start the move of the bird. In our example we will use balls and existing DynamicVJoy, when player touch a ball the VYoy will appear, when player stop touching the ball will start move with appropriate velocity.
+
+Let's start with html file:
+
+\htmlfile{chapters/code_samples/chapter_mobile_game_interface/code4.html}
+
+As we see there are two balls. The files Ball.js, VJoy.js and DynamicVJoy.js are exactly the same as in last example, we have only two new files code4.js and CatapultDVJoy.js.
+
+Now look deeper into the main code4.js file:
+
+\jsfile{chapters/code_samples/chapter_mobile_game_interface/code4.js}
+
+\begin{explain}
+In the starting method onDeviceReady we can see initialisation of two Ball objects (ball1 line 13, and ball3 line 18). We have to remember we have two object that represent our ball
+\begin{itemize}
+\item DOM object connected to html element <img> here represented by variable ball\_img (lines 12, 17) - we can call it visual representative of the real ball.
+\item Ball objects represented by variables ball1, ball2 (lines 13, 18) - we can call it logical representative of the real ball.
+\end{itemize}
+The Ball object already has reference to appropriate DOM one, however while the user will touch the DOM element, the touch event object could have access only to visual representative of our ball. Remembering that javascript is a prototype-based language i.e. at any moment we can add a new field/method to existing object. Therefore we add a new reference logical\_ball to a visual ball representative (line 14, 19).
+
+We can see that each ball have a event listener for touchstart, the rest of listeners are connected to the document object.
+\end{explain}
+
+Finally we will analyze the CatapultDVJoy.js:
+
+\jsfile{chapters/code_samples/chapter_mobile_game_interface/CatapultDVJoy.js}
+
+\begin{explain}
+As a VJoy appears after touchstart event we have to find what object was touched (using touch.target line 9), and get a reference to a proper Ball object \begin{warning} this.ball = touch.target.logic\_ball\end{warning}. 
+
+The method update is almost the same as in VJoy, class, except here we do not change value of velocity of the controlled ball.
+
+In the method touchEnd we hide our VJoj interface and set the appropriate value controlled ball velocity (lines 32, 33).
+\end{explain}
+
+\begin{extercises}
+As we can see when the player touch one of the balls the VJoy interface appears at its position, however the ball is still moving away from the VJoy. We could solved that by stopping the time (freezing the game) or stopping the ball. The latter is equivalent to setting velocity of the ball to (0,0) at the moment of the first touch. Please make the appropriate changes to the project.
+
+Additionally, the big circle in the VJoy interface is not needed, Please repair that.
+\end{extercises}
 

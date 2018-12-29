@@ -12,7 +12,7 @@ var app = {
 		this.VJoy = new DynamicVJoy(this.vjoy_canvas, ball, scale);
 		document.addEventListener("touchstart",this.VJoy.touchStart.bind(this.VJoy), false);
 		document.addEventListener("touchmove", this.VJoy.update.bind(this.VJoy), false);	
-		document.addEventListener("touchstop", this.VJoy.touchStop.bind(this.VJoy), false);	
+		document.addEventListener("touchend", this.VJoy.touchEnd.bind(this.VJoy), false);	
 		ball.startAnimation();
     },	
 	

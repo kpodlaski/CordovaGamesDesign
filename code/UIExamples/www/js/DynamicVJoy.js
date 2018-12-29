@@ -12,7 +12,7 @@ class DynamicVJoy extends VJoy{
 		super.update(event);
 	}
 	
-	touchStop(event){
+	touchEnd(event){
 		this.canvas.style.display="none";
 	}
 }
