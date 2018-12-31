@@ -1,0 +1,5 @@
+
+\begin{shell}
+    npm install -g cordova\end{shell}
+
+This -g switch will install cordova for all users, if one wants to install Cordova only for active user we can omit -g parameter.

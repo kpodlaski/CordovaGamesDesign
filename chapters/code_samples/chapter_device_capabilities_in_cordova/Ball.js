@@ -1,3 +1,4 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 class Ball{
 	
 	constructor (x,y, vx, vy, maxX, maxY, ball_img){

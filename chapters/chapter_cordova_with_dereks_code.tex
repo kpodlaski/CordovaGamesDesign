@@ -1,7 +1,6 @@
-\chapter{Cordova and JavaScript games}\label{CordovaAndJavascriptGame}
+\chapter{Cordova and JavaScript games}\label{CordovaAndJavaScriptGame}
 
-You already learned about JavaScript games in browser and Cordova environment. Cordova allows to run html/scc and js code on mobile devices. In this module we will cover how to use the basic game code from previous modules within Cordova environment. In this module we will take one of Canvas %Derek's
-basic JavaScript game and run this inside Cordova. As the starting point we take \url{http://geniusgamedev.eu/canvas/canvas/exampleCode/maze_game.html}. This example contains a few files: maze\_game.html, and a set of js, css and png files. At the start let's create basic Cordova project (as was described in previous section). After that combine cordova index.html file with maze\_game.html. Beginning with <head> section of both files we join them into one code:
+You have already learned about JavaScript games in browser and Cordova environment. Cordova allows to run html/css and js code on mobile devices. In this module we will cover how to use the basic game code from previous modules within Cordova environment. In this module we will take one of Canvas basic JavaScript game and run this inside Cordova. As the starting point we take the \href{http://geniusgamedev.eu/canvas/canvas/exampleCode/maze_game.html}{Maze Game example}. This example contains a few files: maze\_game.html, and a set of js, css and png files. At the start let's create basic Cordova project (as was described in previous section). After that combine cordova index.html file with maze\_game.html. Beginning with <head> section of both files we join them into one code:
 
 \begin{html}
 <head>
@@ -42,7 +41,7 @@ We move all links to javaScript files to the end of <body> section. Now let us i
 
 </body>
 \end{html}
-Now we are left with two js/index.js files, one from Cordova core, the second from Canvas game example, these two have to be integrated. As the Canvas game file is much more complicated and already have Cordova in mind, we can just replace the Cordova js/index.js file with the one from Canvas game.
+We have two js/index.js files, one from Cordova core, the second from Canvas game example, these two have to be integrated. As the Canvas game file is much more complicated and already have Cordova in mind, we can just replace the Cordova js/index.js file with the one from Canvas game. We have to copy the rest of .js and img files from browser game version without any changes.
 
 Now we have to decide how we can move the robot. In the original version the keyboard arrows are used, while on mobile devices this is not acceptable method of control. The simplest approach would be to add four appropriate buttons to the game. For that we add four buttons UP, DOWN, LEFT, RIGHT just under the <canvas>. The final .html file will have the form:
 
@@ -72,7 +71,7 @@ In original Canvas game the code connected with moving the robot was inside the 
     });
 \end{js}
 
-We have to replace this code that uses arrows with the code that operates with created buttons:
+We have to replace this code that uses arrows with the code that use created buttons to control the robot movement:
 
 \begin{js}
 document.getElementById("up_btn").addEventListener('click', function (e){

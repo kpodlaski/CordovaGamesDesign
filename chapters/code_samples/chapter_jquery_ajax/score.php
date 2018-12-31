@@ -1,6 +1,5 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 <?php
-
-
 function get_all_results()
 {
 	$db = new SQLite3('db/score.db');

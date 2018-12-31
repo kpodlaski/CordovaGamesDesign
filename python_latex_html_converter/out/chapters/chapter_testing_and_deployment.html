@@ -1,0 +1,54 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>Testing and deployment</h1><p></p><p>The testing and deployment of Cordova application is not a sophisticated task. At first we can always use a browser platform. In this way we can easily test most of the applications, and using chrome and its developer tools we can test most functionalities of our application. When the developer thinks about more sophisticated issues he/she can always use ripple simulator. For that we just need to install the simulator using npm:</p><p><pre class="shell_code">
+npm install -g cordova-simulate
+</pre></p><p>and after that we need to run inside the project folder the command:</p><p><pre class="shell_code">
+cordova platform add android
+simulate android
+</pre></p><p>or for iOS simulation</p><p><pre class="shell_code">
+cordova platform add ios
+simulate ios
+</pre></p><p>In that case in the browser opens two pages, one for our application and in next tab the control panel of the emulator, here we can set all properties of the simulated environment.</p><p><img src="img/simulator_screen.png" width=textwidth></p><p>When developer need to test on real device, the application have to be build for appropriate platform. For android the commands are:</p><p><pre class="shell_code">
+cordova platform add android
+cordova build android
+</pre></p><p></p><div class="remark"><p>
+This operation require to configure android SDK (android studio)
+
+This operation require to configure android SDK (android studio)
+</p></div><p></p><p>The exemplary output can look like this:
+<pre class="from_file" type="shellfile" src="code_samples/chapter_testing_and_deployment/build.txt"></pre></p><p>After a rather long output we should see the information that our apk file was created:
+<pre class="shelloutput_code">
+BUILD SUCCESSFUL in 3m 26s
+48 actionable tasks: 48 executed
+Built the following apk(s): D:UsersKrzysztof PodlaskiDocumentsUniwerekGENIUSdidactic_coursesCordova_mobile_gamescodeUIExamplesplatformsandroidappbuildoutputsapkdebugapp-debug.apk
+</pre></p><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

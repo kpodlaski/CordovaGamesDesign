@@ -1,0 +1,276 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>AJAX queries using jQuery </h1><p></p><p>Now let us work on AJAX requests using jQuery. The AJAX is an abbreviation for <b>A</b>synchronous <b>J</b>avascript <b>A</b>nd <b>X</b>ml. This technology allows to send (and receive) information from external sources via asynchronous queries. Usually the data send back and forth is in JSON (<b>J</b>ava<b>S</b>cript <b>O</b>bject <b>N</b>otation) form. In most of the situations webpages using javascript operations send queries to so called REST services.</p><p></p><h2>RESTful services</h2><p>
+Nowadays most of internet services provide so called REST services. This type of services allow us to invoke basic CRUD operations (<b>C</b>reate, <b>R</b>ead, <b>U</b>pdate, <b>D</b>elete). REST API usually allows 4 basic types of http queries GET, POST, PUT and DELETE on so called resources. These operations are usually connected with operations on the resources identified by url. For example GET is a Read or show the resource, POST and PUT are Create or Update the resource, meaning of DELETE is obvious. There is no canonical way for distinction of two operations POST and PUT (i.e. every API developer defines when POST or PUT should be used). I suggest to use POST as Create and PUT as Update.</p><p></p><h3>Service implementation</h3><p>
+Usually to build a REST client one needs a REST API - service that provides some set of REST operations. The server part can be created in most of server technologies starting with PHP, python, Java, ASP.Net, etc. In this tutorial we will use very simple API created in PHP that can receive and send simple data that contains user scores in a game.</p><p>Here we have sample documentation of our test API service:</p><p><table><tr><td>
+
+</td><td><b>Get selected record</b></td></tr><tr><td>
+URL </td><td>   <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id</a> or <a href="http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id</a></td></tr><tr><td>
+Method  </td><td> GET</td></tr><tr><td>
+Parameters  </td><td> id - id of the record </td></tr><tr><td>
+Request Data </td><td> None</td></tr><tr><td>
+Response Data </td><td> record object:</td></tr><tr><td>
+</td><td>
+{"data":{
+    "id":2,
+    "name":"Helena",
+    "score":128
+    }
+}
+</td></tr><tr><td>
+</td></tr></table></p><p><table><tr><td>
+
+</td><td><b>Get all records</b></td></tr><tr><td>
+URL </td><td>   <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv</a> or <a href="http://geniusgamedev.eu/cordova/rest_api/rest.php" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest.php</a></td></tr><tr><td>
+Method  </td><td> GET</td></tr><tr><td>
+Parameters  </td><td> None </td></tr><tr><td>
+Request Data </td><td> None</td></tr><tr><td>
+Response Data </td><td> record object:</td></tr><tr><td>
+</td><td>
+{"data":{</td></tr><tr><td>
+</td><td>"1":{"id":1,"name":"Alan","score":35},</td></tr><tr><td>
+</td><td>"2":{"id":2,"name":"Helena","score":128},</td></tr><tr><td>
+</td><td>"3":{"id":3,"name":"Alex","score":162}</td></tr><tr><td>
+</td><td>}
+</td></tr><tr><td>
+</td></tr></table></p><p><table><tr><td>
+
+</td><td><b>Add a new record</b></td></tr><tr><td>
+URL </td><td>   <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv</a> or <a href="http://geniusgamedev.eu/cordova/rest_api/rest.php" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest.php</a></td></tr><tr><td>
+Method  </td><td> POST</td></tr><tr><td>
+Parameters  </td><td> None </td></tr><tr><td>
+Request Data </td><td> new record object</td></tr><tr><td>
+</td><td>{
+"data": {
+"id": 1,
+"name": "Jane",
+"score": 332
+}
+}
+</td></tr><tr><td>
+Response Data </td><td> record object:</td></tr><tr><td>
+</td><td>
+{"data":{
+    "id":12,
+    "name":"Jane",
+    "score":332
+    }
+}
+</td></tr><tr><td>
+</td><td>the value id is a new value created by the service
+</td></tr><tr><td>
+</td></tr></table></p><p><table><tr><td>
+
+</td><td><b>Update a record</b></td></tr><tr><td>
+URL </td><td>   <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id</a> or <a href="http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id</a></td></tr><tr><td>
+Method  </td><td> PUT</td></tr><tr><td>
+Parameters  </td><td> id - id of the record to update </td></tr><tr><td>
+Request Data </td><td> new record object</td></tr><tr><td>
+</td><td>{
+"data": {
+"id": 1,
+"name": "Jane",
+"score": 332
+}
+}
+</td></tr><tr><td>
+Response Data </td><td> record object:</td></tr><tr><td>
+</td><td>
+{"data":{
+    "id":3,
+    "name":"Jane",
+    "score":332
+    }
+}
+</td></tr><tr><td>
+</td><td>the value id is an id of updated record
+</td></tr><tr><td>
+</td></tr></table></p><p><table><tr><td>
+
+</td><td><b>Delete selected record</b></td></tr><tr><td>
+URL </td><td>   <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv/:id</a> or <a href="http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest.php?id=:id</a></td></tr><tr><td>
+Method  </td><td> DELETE</td></tr><tr><td>
+Parameters  </td><td> None </td></tr><tr><td>
+Request Data </td><td> None</td></tr><tr><td>
+Response Data </td><td> record object:</td></tr><tr><td>
+</td><td>
+{"data":{</td></tr><tr><td>
+</td><td>"1":{"id":1,"name":"Alan","score":35},</td></tr><tr><td>
+</td><td>"3":{"id":3,"name":"Alex","score":162}</td></tr><tr><td>
+</td><td>}
+</td></tr><tr><td>
+</td><td>the rest of records after erasing the requested element
+</td></tr><tr><td>
+</td></tr></table></p><p>In order to test first two of presented operations we can open in the browser one of these two addresses: <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv</a> <a href="http://geniusgamedev.eu/cordova/rest_api/rest_srv/2" target="_blank">http://geniusgamedev.eu/cordova/rest_api/rest_srv/2</a>. In order to test POST, PUT and DELETE we need either use soluctions like RestClient browser plugin (like Advanced REST client for Chrome) or write a special html/js code.</p><p></p><h3>Prepare page for our rest client</h3><p>
+At first let us create base for our web rest client.</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_ajax/code1.html"></pre></p><p>and starting js file</p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_jquery_ajax/code1.js"></pre></p><p></p><div class="code_explained"><p>
+As we can see in html file we have a </td><td>lt;table id="result_tbl"</td><td>gt; where results obtained from service will be placed. Additionally, we have appropriate buttons for GET, POST and PUT operations. Now we just need to fill the methods getOneRecord(), getAllRecords(), postRecord(), putRecord(), deleteRecord().
+
+As we can see in html file we have a </td><td>lt;table id="result_tbl"</td><td>gt; where results obtained from service will be placed. Additionally, we have appropriate buttons for GET, POST and PUT operations. Now we just need to fill the methods getOneRecord(), getAllRecords(), postRecord(), putRecord(), deleteRecord().
+</p></div><p></p><p>Firs let us create a simple get query and show the result in alert window:</p><p><pre class="js_code">
+function getOneRecord(){
+	record_id = 1;
+	if ($('#rid').val()) {
+		record_id = $('#rid').val();
+	}
+	$.ajax({
+        method : "GET",
+        dataType: 'json',
+        url: "http://geniusgamedev.eu/cordova/rest_api/rest_srv/"+record_id,
+        cache: false
+        })
+	.done(function (resp) {
+		alert(JSON.stringify(resp));
+	})
+    .fail(function (msg){
+      alert(JSON.stringify(msg));
+      });
+}</pre></p><p>When this code is inserted into code1.js and the code1.html is run in the browser, we observe that after clicking on the button "getOne_btn" in the return an alert window with the expected json appears. Changing the value in input field "rid" we change what record will be obtained from the server.</p><p><img src="img/ajax_screen1.png" width=textwidth></p><p></p><div class="code_explained"><p>
+In the code w see an operation $.ajax - this is a shortcut for an AJAX query to the server. This operation has an event "done" that is fired when server respond without errors and "fail" whenever error occurs.
+Any js object can be turned into a json string using JSON.stringify(). Additionally we see that we are not interested in all properties of response object but only field data inside this object.
+
+In the code w see an operation $.ajax - this is a shortcut for an AJAX query to the server. This operation has an event "done" that is fired when server respond without errors and "fail" whenever error occurs.
+Any js object can be turned into a json string using JSON.stringify(). Additionally we see that we are not interested in all properties of response object but only field data inside this object.
+</p></div><p></p><p>Now as we know how to obtain an information from server we should work how to add this obtained record into table with results. For that we declare a new function add_record_to_table(record).</p><p><pre class="js_code">
+function getOneRecord(){
+	record_id = 1;
+	if ($('#rid').val()) {
+		record_id = $('#rid').val();
+	}
+	$.ajax({
+        method : "GET",
+        dataType: 'json',
+        url: "http://geniusgamedev.eu/cordova/rest_api/rest_srv/"+record_id,
+        cache: false
+        })
+	.done(function (response) {
+		add_record_to_table(response.data);
+	})
+    .fail(function (msg){
+      alert(JSON.stringify(msg));
+      });
+}</pre></p><p>Now we have to create function add_record_to_table(). In that moment we should also think how we include into our design an operation to delete elements. It will be very nice if in every row of our table we will have a DELETE button that will designate record to erasure.</p><p><pre class="js_code">
+function add_record_to_table(data){
+	var table = $("#result_tbl");
+	var new_row = $("&lt;tr/&gt;");
+	var cell = $("&lt;td/&gt;");
+	cell.html(data.id);
+	cell.appendTo(new_row);
+	cell = $("&lt;td/&gt;");
+	cell.html(data.name);
+	cell.appendTo(new_row);
+	cell = $("&lt;td/&gt;");
+	cell.html(data.score);
+	cell.appendTo(new_row);
+	cell = $("&lt;td/&gt;");
+	var btn = $("&lt;button/&gt;");
+	btn.html("DELETE");
+	btn.appendTo(cell);
+	cell.appendTo(new_row);
+	new_row.appendTo(table);
+	btn.click(function (){
+		deleteRecord(data.id, new_row);
+	});
+}
+</pre></p><p></p><div class="code_explained"><p>
+In order to add a new row in our table we create a new_row object and a cell for every parameter: 'id', 'name', 'score' separately, and a cell for delete button. We append each new cell to a new_row object. After that, we append the new_row object to existing table and bind a new anonymous function to created delete button. During erasure we will need id of a record to delete from server and the row to get rid off.
+
+In order to add a new row in our table we create a new_row object and a cell for every parameter: 'id', 'name', 'score' separately, and a cell for delete button. We append each new cell to a new_row object. After that, we append the new_row object to existing table and bind a new anonymous function to created delete button. During erasure we will need id of a record to delete from server and the row to get rid off.
+</p></div><p></p><p>The method deleteRecord can have the form:</p><p><pre class="js_code">
+function deleteRecord(record_id, row_to_delete){
+	$.ajax({
+        method : "DELETE",
+        dataType: 'json',
+        url: "http://geniusgamedev.eu/cordova/rest_api/rest_srv/"+record_id,
+        cache: false
+    })
+    .done(function (response) {
+      row_to_delete.remove();
+    })
+    .fail(function (msg){
+      alert(JSON.stringify(msg));
+    });
+}
+</pre></p><p></p><div class="code_explained"><p>
+  As we can see jQuery GET and DELETE operations have very similar form. The most important difference is the field 'method'.  Additionally, if we want to remove element from our web page it is enough to invoke method .remove() on selected element.
+
+  As we can see jQuery GET and DELETE operations have very similar form. The most important difference is the field 'method'.  Additionally, if we want to remove element from our web page it is enough to invoke method .remove() on selected element.
+</p></div><p></p><p>We already know how to obtain one element via GET operation, the action to get All of them in one query is very straight forward:</p><p><pre class="js_code">
+function getAllRecords(){
+	$.ajax({
+        method : "GET",
+		dataType: 'json',
+        url: "http://geniusgamedev.eu/cordova/rest_api/rest_srv/",
+        cache: false
+    })
+		.done(function (response) {
+			var data = response.data;
+			for (let index in data){
+				add_record_to_table(data[index]);
+			}
+		})
+		.fail(function (msg){
+			alert(JSON.stringify(msg));
+		});
+}
+</pre></p><p>We are left only with two types of queries "POST" and "PUT", let us start with the first one.</p><p><pre class="js_code">
+function postRecord(){
+	var new_element = {};
+	new_element.id = $("#nid").val();
+	new_element.name = $("#name").val();
+	new_element.score = $("#score").val();
+	var data_to_send ={};
+	data_to_send.data = new_element;
+	$.ajax({
+        method : "POST",
+		dataType: 'json',
+		data: JSON.stringify(data_to_send),
+        url: "http://geniusgamedev.eu/cordova/rest_api/rest_srv/",
+        cache: false
+    })
+		.done(function (response) {
+			add_record_to_table(response.data);
+		})
+		.fail(function (msg){
+			alert(JSON.stringify(msg));
+		});
+}
+</pre></p><p></p><div class="code_explained"><p>
+  In the code above at the beginning we have to obtain elements from the form inputs. After that we send the data to server and add a new row from record obtained back. The only new element in this code is setting 'data' field of ajax query.
+
+  In the code above at the beginning we have to obtain elements from the form inputs. After that we send the data to server and add a new row from record obtained back. The only new element in this code is setting 'data' field of ajax query.
+</p></div><p></p><p>The PUT ajax query is very similar to the ones we have already created. And the last piece of the code is an easy extension from previous elements. The final version of js file have the form:</p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_jquery_ajax/code2.js"></pre></p><p></p><p></p><div class="question"><p>
+  Please try to make the web page work more efficiently, at the moment if you click 'Get All Records' twice in the table we have doubled every record. Additionally when downloading records one by one, the records in the table are not sorted by any means and can repeat.  When asking of a non existing record we obtain error -  as we do not check if reply from the server is not null.
+
+  Please try to make the web page work more efficiently, at the moment if you click 'Get All Records' twice in the table we have doubled every record. Additionally when downloading records one by one, the records in the table are not sorted by any means and can repeat.  When asking of a non existing record we obtain error -  as we do not check if reply from the server is not null.
+</p></div><p></p><p> </p><h3>Server code</h3><p>
+ The php is not a part of this course, however we have used an exemplary REST server. In order to run appended scripts one have to install WWW server. This examples were tested on Apache server on linux machine and XAMPP installation on Windows 10. The server contains only two files: score.php - connected to database CRUD operations and rest.php - operates on http REST requests.</p><p> <pre class="from_file" type="phpfile" src="code_samples/chapter_jquery_ajax/score.php"></pre></p><p> <pre class="from_file" type="phpfile" src="code_samples/chapter_jquery_ajax/rest.php"></pre></p><p> Additionally in order to make this examples run we have to add .htaccess file with the following content:</p><p> <pre class="from_file" type="shellfile" src="code_samples/chapter_jquery_ajax/_.htaccess"></pre></p><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+#navigation ul
+{
+   width:90%;
+   list-style: none;
+   padding: 0px;
+   margin:auto;
+}
+
+#navigation ul li a
+{
+    border-left: thin black solid;
+    border-right: thin black solid;
+    border-top: none;
+    border-bottom:none;
+    background-color:#FFC;
+    color:#00c;
+
+    /*display:block;    Does not work in iExplorer */  
+    width:100%;      /* so use width instead       */
+    text-decoration: none;
+    text-align:center;
+}
+
+/* Does not work in iExplorer 
+#navigation ul li:first-child > a
+{
+    border-top: thin black solid;
+}
+
+#navigation ul li:last-child > a
+{
+    border-bottom: thin black solid;
+}
+
+*/
+
+#navigation a:link
+{
+
+}
+#navigation a:visited 
+{
+
+}
+
+#navigation a:hover 
+{
+   background-color:a0a;
+   color:ee0;
+}
+
+#navigation a:active 
+{
+
+}
+
+.navigationSubsection   /* used to define how the subsection headers look in the navigation menu*/
+{
+   color:yellow;
+   text-align:center;
+   text-transform:Capitalize;
+   padding:0px; 
+   margin: 15px 0 0 0; 
+   font-weight:bold;
+   font-size:larger;
+}
+
+.floatingMessage  /* used to define how floating messages appear */
+{
+   position:absolute;
+   visibility:hidden;
+   border:thin black solid;
+   background-color:#ffffe0;
+   padding:3px;
+}
+
+div.message
+{
+   font-size:larger;
+   font-weight:bold;
+   text-align:center;
+   background-color:#eeeedd;
+   border:black thin solid;
+   padding:5px;
+}
+
+.forceLowerCase
+{
+   text-transform:lowercase;
+}
+
+.highlight
+{
+   font-weight:bold;
+   font-style:italic;
+}
+
+.copyright
+{
+   font-weight:bold;
+   font-style:italic;
+   font-size:12px;
+   color:#999;
+}
+
+
+body 
+{
+   font-size: 20px;
+   padding:5px;
+   background-color:white;
+}
+
+h1
+{
+   text-align:center;
+   text-transform:Capitalize;
+}
+
+h2
+{
+   text-align:center;
+   text-transform:Capitalize;
+   padding-top:1in;
+}
+
+h3
+{
+   text-align:left;
+   text-transform:Capitalize;
+}
+
+pre 
+{
+   background-color:#ffffdd;
+}
+
+p
+{
+   text-align:justify;
+}
+
+.warning
+{
+   color:red;
+}
+
+blockquote
+{
+   text-align:justify;
+}
+
+.center
+{
+   text-align:center;
+}
+
+li
+{
+
+   text-align:justify;
+}
+
+TH
+{
+   text-align:left;
+   vertical-align:top;
+}
+
+TD
+{
+   vertical-align:top;
+}
+
+DT
+{
+   font:bold;
+   margin-top:20px;
+}
+
+.title
+{
+   text-align:center;
+   font-size: 150%;
+   text-transform: capitalize;
+   font-style:oblique;
+   font-weight:bold;
+   font-family:"Times Roman";
+   filter:dropshadow(color=lightgrey, offx=5, offy=5);   
+   margin-bottom:20px;
+}
+
+.formula
+{
+    margin-bottom:50px;
+}
+
+

@@ -1,0 +1,3 @@
+RewriteEngine On    # Turn on the rewriting engine
+RewriteRule ^rest_srv$ rest.php [NC,L]
+RewriteRule ^rest_srv/([0-9a-zA-Z_-]*)$ rest.php?id=$1 [NC,L]

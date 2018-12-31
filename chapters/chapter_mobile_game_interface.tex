@@ -2,31 +2,32 @@
 
 The mobile game interface is one of the most important elements of mobile game design. The user uses the interface to interact with the game, to control his/her avatar. The design of the interface alow user to flawlessly operate and use the game or in the worst case will make the player angry and in result abandon our game. Therefore, the interface should be design with great care. At first we should think:
 \begin{itemize}
-\item who is our player,how the player?
+\item who is our player, why he/she plays the game?
 \item how and maybe where he/he will play the game?
 \item what approach will be comfortable to the user?
+\item what type/size of device is used to play?
 \end{itemize}
 
 \paragraph*{Gamer Stance}
-Just take into account a teenager or older user that plays the games with appropriate care. Then the player will probably take the "Gamer Stance".
+First take into account a person that plays the games with appropriate care. Then the player will probably take the "Gamer Stance".
 \includegraphics[width=.8\textwidth]{chapters/img/gamerStance.png}
 
 The player keep the phone in landscape position with two thumbs near the bottom corners of the screen. We can easily see that a small part of the screen is easily accessible (Red area), a little bigger area that can be stil accessed (Orange area) and the rest of the screen very hard for interaction.
 
-\paragraph*{Casual player}
+\paragraph*{Casual or tablet player}
 
 The player keeps the device in one hand and uses the secund one to operate on the screen. The hole area of the screen is accessible, but the user cannot touch instantly two distant places.
 
 \paragraph*{Subway player}
 
-The player plays for short time usually in rush. Keeps the phone in one hand controlling it with finger of this hand. This type of player has minimal reach and the control area is very small, additionally  multitouch control method is unacceptable.
+The player plays for short time usually in rush. Keeps the phone in one hand, probably in portrait orientation, controlling it with thumb of this hand. This type of player has minimal reach and the control area is very small, additionally  multitouch control method is unacceptable.
 
 This three types of players demand totally different interface for the game. There is no solution that will fit to any two types of the player. During the design stage, the developing team has to decide what type of player they expect. Moreover when we think about contextual games it is possible that the external context will prefer one of these types of interaction for example if player has to run/move with the phone, we have a subway type player, no sophisticated  interaction is possible during movement.
 
 Let us now cover some basic methods of interaction and their implementation in Cordova.
 
 \section{Tap, sigle touch}
-This method of interaction have been used in this course all the time. All types of buttons, clickable images represents this simplest control method. However for real fast interaction it is suggested to use touch events instead of click events. The reason is that mobile devices have to spend some time (around 300 milliseconds) to translate native touch event to click one.
+This method of interaction have been used in this course all the time. All types of buttons, clickable images represents this simplest control method. However for real fast interaction it is suggested to use touch events instead of click events. The reason is that mobile devices have to spend some time (around 300 milliseconds) to translate native touch event to a click one.
 
 \section{Drag, continuous touch}
 The mobile devices natively support touch events: touchstart, touchend, touchcancel, touchmove. As for default touch support multitouch, it tracks more than one finger separately. The simple example below presents how touches can be used for simple drawing application.
@@ -56,9 +57,9 @@ var app = {
 
 We define three fields that will be used later:
 \begin{description}
-  \item[lastTouch] - represents coordinates of last registered touch, at this x, and y are null as no touch have been initiated yet,
-  \item[colors] - table off colors that will be used, the idea is to change color with the start every new touch,
-  \item[color] - the actual color to be used when drawing.
+  \item[lastTouch] - represents coordinates of last registered touch, at this stage x, and y are null as no touch have been initiated yet,
+  \item[colors] - table of colors that will be used, the idea is to change color with the start of every new touch,
+  \item[color] - the index of actual color to be used when drawing.
 \end{description}
 
 Now the operations connected to specific touch events. Let us start with touchstart:
@@ -75,7 +76,7 @@ Now the operations connected to specific touch events. Let us start with touchst
 \end{js}
 
 \begin{explain}
-The first line event.preventDefault is a very important one, we do not want the device to process the event further, this could for example result in firing a click event. Next we obtain the information about all touches via event.changedTouches, every touch have properties pageX, pageY that contains coordinates of touched place.
+The first line event.preventDefault is a very important one, we do not want the device to process the event further, this could for example result in firing a click event. Next, we obtain the information about all touches via event.changedTouches, every touch have the properties pageX, pageY that contains coordinates of touched place.
 \end{explain}
 
 The drawing of a ball uses a known canvas drawing:
@@ -124,12 +125,13 @@ As we would like to continue drawing while the touch event continues, we do that
 
 \begin{explain}
 The drawing when finger is moving, is done using ctx.moveTo and ctx.lineTo methods, after the end of operation we reset the lastTouch coordinates.
-\begin{warning}
-If we comment the last two lines, the drawing method will be totally different, however, this can be a suggestion how to implement virtual joystick controller.
-\end{warning}
 \end{explain}
 
-If we run this exiting code we will see that when moves start we draw a circle, after that the lines that follow the movement are drawn. The final result is not symmetric as we can easily see the ball at the beginning of the line and nothing at its end. To repair this we add appropriate touchend handler:
+\begin{extercises}
+If we comment the last two lines, the drawing method will be totally different, however, this can be a suggestion how to implement virtual joystick controller.
+\end{extercises}
+
+Running this exiting code we will see that when touches start we draw a circle, after that the lines that follow the movement are drawn. The final result is not symmetric as we can easily see the ball at the beginning of the line and nothing at its end. To repair this we add appropriate touchend handler:
 
 \begin{js}
     onTouchEnd: function(event){
@@ -162,14 +164,13 @@ Now we can discuss the code for  our virtual joy:
 
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/VJoy.js}
 
-%
 
 \begin{explain}
-The VJoy object needs information about wrapping canvas, the ball that is to be controlled and scale all that is provided during construction. Additionally we have fields scale, actualPosition and positionOffset that will be used later. Actual position will represent a position of user touch and position offset stores coordinates of left top corner of wrapping, the meaning of scale property will be discussed later.
+The VJoy object needs information about wrapping canvas, the ball that is to be controlled and scale all that is provided during construction. The object have the fields scale, actualPosition and positionOffset. Actual position will represent a position of user touch and position offset stores coordinates of left top corner of wrapping, the meaning of scale property will be discussed later.
 
 All the interface drawing is done in drawVJoy methods. The control interface consist of two circles, one in the middle is used to show the center, and the bigger one bounds the area. When player touches the control area an additional blue line will show the movement direction of the ball. At the start of the game when there is no actual position no blue line is shown.
 
-The method update connects the control interface with touches and movement of the ball. We have to take into account that relative position of touch to the middle point of the interface should be used for steering the ball movement. That is why actualPosition is connected to positionOffset and half of wrapping canvas width. Additionally we do not want the size of control interface (canvas width) to have a linear impact on ball velocity, for that reason a scale property was used. After setting the velocity and actual position the vjoy is drawn (line 18).
+The method update connects the control interface with touches and movement of the ball. We have to take into account that relative position of touch to the middle point of the interface should be used for steering the ball movement. That is why actualPosition is connected to positionOffset and half of wrapping canvas width (lines 15-16). Additionally we do not want the size of control interface (canvas width) to have a linear impact on ball velocity, for that reason a scale property was used (lines 17-18). After setting the velocity and actual position the vjoy is drawn (line 19).
  \end{explain}
 
 \subsection{Dynamic VJoy}
@@ -184,36 +185,36 @@ The class contains a two new methods touchStart and touchEnd. The first one sets
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/code3.js}
 
 \begin{explain}
-The main js file differs by creation od VJoy field (line 12) the new class DynamicVJoy is used instead of VJoy. There are also a new bindings of handler for touchstart and touchend events. Both handlers uses methods of the new derived class DynamicVJoy.
+The main js file differs by creation of VJoy field (line 14) the new class DynamicVJoy is used instead of VJoy. There are also a new bindings of handler for touchstart and touchend events. Both handlers uses methods of the new derived class DynamicVJoy.
 \end{explain}
 
 \htmlfile{chapters/code_samples/chapter_mobile_game_interface/code3.html}
 
 \begin{explain}
-In the html file we have only few changes, the firs one is to make vjoy\_canvas invisible at the start (display:none). Additionally in line 20 we add a new file DynamicVJoy.js and in next line a new main .js file is included.
+In the html file we have only few changes, the first one is to make vjoy\_canvas invisible at the start (display:none). Additionally in line 20 we add a new file DynamicVJoy.js and in next line a new main .js file is included.
 \end{explain}
 
 \section{Catapult type control}
 
-We all know the game angry birds, In that game the control used something like a catapult mechanics, player using continous touch define the velocity vector of bird and a end of touch event start the move of the bird. In our example we will use balls and existing DynamicVJoy, when player touch a ball the VYoy will appear, when player stop touching the ball will start move with appropriate velocity.
+We all know the game angry birds, In that game the control used something like a catapult mechanics, player using continous touch define the velocity vector of bird and a end of touch event the movement of the bird starts. In our example we will use balls and existing DynamicVJoy, when player touch a ball the VYoy will appear, when player stop touching the ball will start move with appropriate velocity.
 
 Let's start with html file:
 
 \htmlfile{chapters/code_samples/chapter_mobile_game_interface/code4.html}
 
-As we see there are two balls. The files Ball.js, VJoy.js and DynamicVJoy.js are exactly the same as in last example, we have only two new files code4.js and CatapultDVJoy.js.
+As we see there are two balls. The files Ball.js, VJoy.js and DynamicVJoy.js are exactly the same as in the last example, we have only two new files code4.js and CatapultDVJoy.js.
 
 Now look deeper into the main code4.js file:
 
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/code4.js}
 
 \begin{explain}
-In the starting method onDeviceReady we can see initialisation of two Ball objects (ball1 line 13, and ball3 line 18). We have to remember we have two object that represent our ball
+In the starting method onDeviceReady we can see initialisation of two Ball objects (ball1 line 15, and ball2 line 20). We have to remember we have two objects that represent our ball
 \begin{itemize}
-\item DOM object connected to html element <img> here represented by variable ball\_img (lines 12, 17) - we can call it visual representative of the real ball.
-\item Ball objects represented by variables ball1, ball2 (lines 13, 18) - we can call it logical representative of the real ball.
+\item DOM object connected to html element <img> referenced by variable ball\_img (lines 14, 19) - we can call it visual representative of the real ball.
+\item Ball objects referenced by variables ball1, ball2 (lines 15, 20) - we can call it logical representative of the real ball.
 \end{itemize}
-The Ball object already has reference to appropriate DOM one, however while the user will touch the DOM element, the touch event object could have access only to visual representative of our ball. Remembering that javascript is a prototype-based language i.e. at any moment we can add a new field/method to existing object. Therefore we add a new reference logical\_ball to a visual ball representative (line 14, 19).
+The Ball object already has reference to appropriate DOM one, however while the user will touch the DOM element, the touch event object could have access only to visual representative of our ball. Remembering that javascript is a prototype-based language i.e. at any moment we can add a new field/method to existing object. We add a new reference logical\_ball to a visual ball representative (line 16, 21).
 
 We can see that each ball have a event listener for touchstart, the rest of listeners are connected to the document object.
 \end{explain}
@@ -223,16 +224,17 @@ Finally we will analyze the CatapultDVJoy.js:
 \jsfile{chapters/code_samples/chapter_mobile_game_interface/CatapultDVJoy.js}
 
 \begin{explain}
-As a VJoy appears after touchstart event we have to find what object was touched (using touch.target line 9), and get a reference to a proper Ball object \begin{warning} this.ball = touch.target.logic\_ball\end{warning}. 
+As a VJoy appears after touchstart event we have to find what object was touched (using touch.target line 10), and get a reference to a proper Ball object \begin{warning} this.ball = touch.target.logic\_ball\end{warning}.
 
 The method update is almost the same as in VJoy, class, except here we do not change value of velocity of the controlled ball.
 
-In the method touchEnd we hide our VJoj interface and set the appropriate value controlled ball velocity (lines 32, 33).
+In the method touchEnd we hide our VJoj interface and set the appropriate velocity of controlled ball (lines 33, 34).
 \end{explain}
 
 \begin{extercises}
-As we can see when the player touch one of the balls the VJoy interface appears at its position, however the ball is still moving away from the VJoy. We could solved that by stopping the time (freezing the game) or stopping the ball. The latter is equivalent to setting velocity of the ball to (0,0) at the moment of the first touch. Please make the appropriate changes to the project.
+As we can see when the player touch one of the balls the VJoy interface appears at its position, however the ball is still moving away from the VJoy. We could solve that by stopping the time (freezing the game) or stopping the ball. The latter is equivalent to setting velocity of the ball to (0,0) at the moment of the first touch. Please make the appropriate changes to the project.
 
-Additionally, the big circle in the VJoy interface is not needed, Please repair that.
+Additionally, the big circle in the VJoy interface is not needed, Please repair that too.
+
 \end{extercises}
 

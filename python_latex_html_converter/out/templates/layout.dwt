@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name="Robots" content="NOARCHIVE"/>
+<meta name = "revisit-after" content="6 days" />
+
+<script language="JavaScript" type="text/javascript" src="../javascripts/javaScripts.js"></script>
+
+<title>Derek O' Reilly's DKIT lecture notes. Derek O' Reilly, Dundalk Institute of Technology (DKIT), Dundalk, County Louth, Ireland. Copyright Derek O' Reilly DKIT Dundalk Louth Ireland</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+
+<link rel="stylesheet" type="text/css" href="../css_styles/notesStyle.css">
+<link rel="stylesheet" type="text/css" href="../css_styles/layoutStyle.css">
+
+<!--[if IE]>
+<style>
+div#title
+{
+	left:15px;
+}
+div#topmenu
+{
+	left:1px;
+}
+</style>
+<![endif]-->
+
+</head>
+
+
+<!-- body style needed to disable the body's scroll bar.
+ This is needed so that iFrame does not produce a second scroll bar inside body's scroll bar.
+ onLoad() is used to give the iFrame the focus as soon as the page is loaded. 
+ This means that when the page loads, scrolling, etc. will apply to the contents and not to the menu  -->
+<body> 
+
+<script language="JavaScript">             // Allow a floating message to be displayed.
+                                           // The <li> has to be declared now as part of the <body>.
+                                           // It is set to visibility:hidden at this stage.
+                                           // Once it has been created and has an 'id' attached to 
+                                           // it, its values (including visibility and contents) can be set dynamically
+
+document.write("<div id='this.floatingMessage' class='floatingMessage'></div>");
+
+function floatingMessage(message)
+{
+   // allow a floating message to be placed on the screen.
+   // This crude version places the message at the current mouse.x and 50 pixels above the mouse.y position.
+   // This crude version is always 310 pixels wide and adjusts its height to suit the text.
+   var e = document.getElementById("this.floatingMessage");  // this.floatingMessage is declared as a <li> just above this function
+   e.style.visibility = "visible";
+   e.style.width      = 310;
+   e.style.left       = event.clientX;
+   e.style.top        = event.clientY - 50;
+   e.innerHTML        = message;
+
+}
+
+function hideFloatingMessage()
+{
+   document.getElementById("this.floatingMessage").style.visibility = "hidden";
+}
+</script>
+<noscript>
+<!-- above script is only for a gameObject effect. It is not necessary for the displaying of the webpage -->
+</noscript>
+
+
+
+
+
+<script>
+var menuIsVisible = false;
+function toggleMenu()
+{
+	if(menuIsVisible)
+	{
+		menuIsVisible = false;
+		document.getElementById('topmenu').style.display = 'block';
+		document.getElementById('navigation').style.left = "-400px";
+					document.getElementById("menuIcon").src = "http://derek.dkit.ie/images/menu_button_icon.png";
+
+	}
+	else
+	{
+		menuIsVisible = true;
+		document.getElementById("menuIcon").src = "http://derek.dkit.ie/images/menu_close_button_icon.png";
+		document.getElementById('navigation').style.left = "0px";
+
+	}
+}
+
+
+function mouseoutMenuIcon()
+{
+	document.getElementById("menuIcon").src = "http://derek.dkit.ie/images/menu_button_icon.png";
+}
+</script>
+
+<div id = "container">
+  <div id = "title"><img title="Menu" alt="Menu" id="menuIcon" onclick="toggleMenu()"    
+                   src="http://derek.dkit.ie/images/menu_button_icon.png">
+ 
+                     
+              <!--       <img onMouseOver="document.getElementById('topmenu').style.display = 'block'"
+                    onMouseOut ="document.getElementById('topmenu').style.display = 'none'"
+                    onTouchStart="document.getElementById('topmenu').style.display = 'block'"
+                     src="../images/menu_button_icon.png" style="width:2em;height:2em"> -->
+					 
+					 <!-- T emplateBeginEditable name="title" -- >title< !-- TemplateEndEditable -->
+  
+
+<!--
+  <div style="width:350px" id = "topmenu" onMouseOver="document.getElementById('topmenu').style.display = 'block'"
+                    onMouseOut ="menuIsVisible = false;document.getElementById('topmenu').style.display = 'none';mouseoutMenuIcon()"
+                    >
+ -->
+   <div style="width:350px" id = "topmenu" onclick="toggleMenu()">
+                    
+  
+  <!-- TemplateBeginEditable name="contents" -->
+        
+        
+        menu
+        
+        
+    <!-- TemplateEndEditable --> 
+  </div id = "topmenu">
+  </div id = "title">
+  <script language="javascript">
+document.getElementById('topmenu').style.display = 'none';
+</script>
+  
+  <div id = "pagecontent"  >
+  <iframe onload ="menuIsVisible = true; toggleMenu(); title='contents of the currently selected section of the e-notes'" frameborder="no" name="currentPage" id="currentPage" src="home_page/home_page.html"></iframe>
+  </div id = "pagecontent">
+
+</div id = "container">
+</body>
+</html>

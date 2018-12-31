@@ -1,0 +1,90 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>Apache Cordova</h1><p></p><p>The <a href="https://cordova.apache.org" target="_blank">Apache Cordova</a> is one of the best known technologies to create modern cross-platform mobile applications. This framework allows to create applications using standard HTML5 technology stack in order to build mobile apps for Android and iOS mobile devices. It is required from developer to have basic competencies in classical technologies like html, css and javascript.</p><p>In order to begin work with Cordova environment we have to install <a href="http://nodejs.org" target="_blank">Node.js</a> application. <span class="warning"> This will require administrator privileges on the system.</span> The Node.js environment contains npm - nodejs packet manager that allow to install new packages/application into our system. Using npm we can easily install Cordova by writing in command line:</p><p><pre class="shell_code">
+npm install -g cordova
+</pre></p><p>This -g switch will install cordova for all users, if someone wants to install Cordova only for active user have to omit -g parameter.</p><p>Now we are ready to create first Cordova app, for that let us create a new directory somewhere in the system and go into this folder.</p><p><pre class="shell_code">
+mkdir CordovaApps
+cd CordovaApps
+</pre></p><p>Now we should invoke command:
+<pre class="shell_code">
+cordova create FirstCordovaApp
+</pre></p><p>This will create a folder with prepared template of Cordova application. The prepared folder contains a few subfolders the most important from the point of view of game developer is www. The rest of subfolders we can treat as internal Cordova folder and let them be.</p><p>Just for start we can try to run the project, first we have to add a platform (i.e. the platform we would like to use as deployment machine). In Cordova we have many platforms to choose in this course we will use only Browser for first level debugging, and Android or iOS for second level debugging and final deployment.</p><p><pre class="shell_code">
+cd FirstCordovaApp
+cordova platform add browser
+</pre></p><p>And run the created simple starting project</p><p><pre class="shell_code">
+cordova run browser
+</pre></p><p>We should see some information in the terminal and our default browser should open an address <a href="http://localhost:8000/index.html" target="_blank">http://localhost:8000/index.html</a>. We will see simple page with Cordova logo and a text: device is ready.</p><p>Now let us look what is a content of www folder and what lines in the code makes the browser to show this screen ref{fig.basic_app}.</p><p><img src="img/basic_structure.png" width=60pt></p><p>We can see specific folders for css, img and js files respectively and one file index.html.</p><p>When we open index.html file we will notice the main two parts contained in &lt;head&gt; and &lt;body&gt; tags. At the moment let us ignore &lt;head&gt; part as there is not too many interesting elements and focus on &lt;body&gt;</p><p><pre class="html_code">
+&lt;body&gt;
+        &lt;div class="app"&gt;
+            &lt;h1&gt;Apache Cordova&lt;/h1&gt;
+            &lt;div id="deviceready" class="blink"&gt;
+                &lt;p class="event listening"&gt;Connecting to Device&lt;/p&gt;
+                &lt;p class="event received"&gt;Device is Ready&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script type="text/javascript" src="cordova.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="js/index.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+</pre></p><p>W can notice a few things:
+</p><div class="code_explained"><p>
+<ul>
+</li><li> The JavaScript files are added at the end of the &lt;body&gt; part. This is connected with the order of loading elements in html, and as .js files can operate on html elements it is better to first build these elements before start actions programmed in .js files.<p></li><li> We should remember that <span class="warning">cordova.js</span> has to be always the first script</p><p></li><li> All elements of the web page are contained in one &lt;div class="app"&gt; element</p><p></li><li> There is one &lt;div&gt; element  with id = "deviceready"
+</li><li> One &lt;p&gt; element has class listening while the other received</p><p></li></ul>
+</div><p></p><p>Let us now look into js/index.js file</p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_cordova_intro/code3.js"></pre></p><p></p><div class="code_explained"><p>
+How it works: when the page is finally loaded the Cordova environment fire an event 'deviceready', this implies that bind method onDeviceReady is invoked. In the result the method receivedEvent is started with appropriate value of parameter id. In this method the elements with class "listening" becomes invisible while the ones with "received" becomes visible.</p><p>Explanation line by line:
+<dl>
+</dd><dt>line 3:</dt><dd> As we can see in the line 3 the method onDeviceReady is bind to the event 'deviceready', this.onDeviceReady is just an reference to the method onDeviceReady of the object app, the second this reference in .bind(this), means that when the method will be invoked when event 'ondeviceready' is fired the app (this) object will be bind as owner of event handler. The binding of owner of event handler is important, wrong binding can lead to errors in the aplication.
+</dd><dt>line 7:</dt><dd> Run method receivedEvent with parameter id = 'deviceready'
+</dd><dt>line 11:</dt><dd> Find in the html document the element with id = 'deviceready', store it as parentElement
+</dd><dt>line 12:</dt><dd> Find all child nodes of parentElement with class "listening", store them as listeningElement
+</dd><dt>line 13:</dt><dd> Find all child nodes of parentElement with class "received", store them as receivingElement
+</dd><dt>line 15:</dt><dd> Set style of the elements in listeningElement to display:none, i.e. hide if it is visible on the screen
+</dd><dt>line 16:</dt><dd> Set style of the elements in receivedElement to display:block, i.e. show if it is not visible on the screen
+</dd><dt>line 18:</dt><dd> Print a debugging information to JavaScript console.
+</dd><dt>line 22:</dt><dd> The function initialize of the object app is invoked when javascript is loaded.
+</dd></dl>
+
+</p></div><p></p><p>As was mentioned Cordova environment uses a special event 'deviceready'. By default Cordova has more specially defined events, some of them works for all platforms some only for Android (see <a href="https://cordova.apache.org/docs/en/latest/cordova/events/events.html" target="_blank">https://cordova.apache.org/docs/en/latest/cordova/events/events.html</a>):</p><p><table><tr><td>
+'deviceready':</td><td> The deviceready event fires when Cordova is fully loaded.</td></tr><tr><td>
+'pause': </td><td> The pause event fires when the native platform puts the application into the background.</td></tr><tr><td>
+'resume':</td><td> The resume event fires when the native platform pulls the application out from the background.</td></tr><tr><td>
+'backbutton':</td><td> The event fires when the user presses the back button.</td></tr><tr><td>
+'menubutton':</td><td> The event fires when the user presses the menu button. </td></tr><tr><td>
+'searchbutton':</td><td> The event fires when the user presses the search button on Android. </td></tr><tr><td>
+'volumedownbutton':</td><td> The event fires when the user presses the volume down button.</td></tr><tr><td>
+'volumeupbutton':</td><td> The event fires when the user presses the volume up button.</td></tr><tr><td>
+</td></tr></table></p><p>It should be noted that Cordova prefers SPA architecture (Single Page Applications) i.e. there is only one url address, all changes of the interface are done within one javascript file and using ajax queries.</p><p></p><div class="remark"><p>
+If someone do not want to use command line and nodejs environment, there is always a possibility to use Cordova within Visual Studio environment <a href="https://visualstudio.microsoft.com/vs/features/cordova/" target="_blank">https://visualstudio.microsoft.com/vs/features/cordova/</a>. However this can lead to duplicate android sdk environment as Visual Studio prefers to use everything internal.
+
+If someone do not want to use command line and nodejs environment, there is always a possibility to use Cordova within Visual Studio environment <a href="https://visualstudio.microsoft.com/vs/features/cordova/" target="_blank">https://visualstudio.microsoft.com/vs/features/cordova/</a>. However this can lead to duplicate android sdk environment as Visual Studio prefers to use everything internal.
+</p></div><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

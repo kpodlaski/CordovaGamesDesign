@@ -1,11 +1,8 @@
 /* Author: Derek O Reilly, Dundalk Institute of Technology, Ireland.             */
+/* Cordova elements by: Krzysztof Podlaski, University of Lodz					 */
 /* There should always be a javaScript file with the same name as the html file. */
 /* This file always holds the playGame function().                               */
 /* It also holds game specific code, which will be different for each game       */
-
-
-
-
 
 /******************** Declare game specific global data and functions *****************/
 /* images must be declared as global, so that they will load before the game starts  */
@@ -35,12 +32,6 @@ const MAZE = 1;
 const SKELETON = 2;
 const WIN_MESSAGE = 3;
 /******************* END OF Declare game specific data and functions *****************/
-
-
-
-
-
-
 
 /* Always have a playGame() function                                     */
 /* However, the content of this function will be different for each game */

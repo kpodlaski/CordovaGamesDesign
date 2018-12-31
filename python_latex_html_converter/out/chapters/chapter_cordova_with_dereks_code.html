@@ -1,0 +1,102 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>Cordova and JavaScript games</h1><p><a name="CordovaAndJavaScriptGame"></a></p><p>You have already learned about JavaScript games in browser and Cordova environment. Cordova allows to run html/css and js code on mobile devices. In this module we will cover how to use the basic game code from previous modules within Cordova environment. In this module we will take one of Canvas %Derek's
+basic JavaScript game and run this inside Cordova. As the starting point we take the <a href="http://geniusgamedev.eu/canvas/canvas/exampleCode/maze_game.html" target="_blank">Maze Game example</a>. This example contains a few files: maze_game.html, and a set of js, css and png files. At the start let's create basic Cordova project (as was described in previous section). After that combine cordova index.html file with maze_game.html. Beginning with &lt;head&gt; section of both files we join them into one code:</p><p><pre class="html_code">
+&lt;head&gt;
+        &lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"&gt;
+        &lt;meta name="format-detection" content="telephone=no"&gt;
+        &lt;meta name="msapplication-tap-highlight" content="no"&gt;
+        &lt;meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"&gt;
+        &lt;title&gt;GENIUS worked example&lt;/title&gt;
+        &lt;link rel="shortcut icon" type="image/png" href="images/genius_icon.png"/&gt;
+        &lt;link href="css/game.css" rel="stylesheet" type="text/css"/&gt;
+    &lt;/head&gt;
+</pre></p><p>We move all links to javaScript files to the end of &lt;body&gt; section. Now let us integrate both &lt;body&gt; sections.</p><p><pre class="html_code">
+&lt;body&gt;
+    &lt;div class="app"&gt;
+        &lt;div id="gameContainer"&gt;
+           &lt;canvas id="gameCanvas" tabindex="1"&gt;&lt;/canvas&gt;
+           &lt;p&gt;Use the arrow keys to change the direction that the skeleton walks.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type="text/javascript" src="cordova.js"&gt;&lt;/script&gt;    &lt;script src="js/CanvasGame.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/GameObject.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/index.js" type="text/javascript"&gt;&lt;/script&gt;    &lt;script src="js/MazeCanvasGame.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/StaticImage.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/Skeleton.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/MazeSkeleton.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/StaticText.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="js/maze_game.js" type="text/javascript"&gt;&lt;/script&gt;&lt;/body&gt;
+</pre>
+We have two js/index.js files, one from Cordova core, the second from Canvas game example, these two have to be integrated. As the Canvas game file is much more complicated and already have Cordova in mind, we can just replace the Cordova js/index.js file with the one from Canvas game. We have to copy the rest of .js and img files from browser game version without any changes.</p><p>Now we have to decide how we can move the robot. In the original version the keyboard arrows are used, while on mobile devices this is not acceptable method of control. The simplest approach would be to add four appropriate buttons to the game. For that we add four buttons UP, DOWN, LEFT, RIGHT just under the &lt;canvas&gt;. The final .html file will have the form:</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_cordova_with_dereks_code/index.html"></pre></p><p>In original Canvas game the code connected with moving the robot was inside the file: js/maze_game.js:
+<pre class="js_code">
+/* If they are needed, then include any game-specific mouse and keyboard listeners */
+    document.addEventListener('keydown', function (e)
+    {
+        if (e.keyCode === 37)  // left
+        {
+            gameObjects[SKELETON].setDirection(LEFT);
+        }
+        else if (e.keyCode === 38) // up
+        {
+            gameObjects[SKELETON].setDirection(UP);
+        }
+        else if (e.keyCode === 39) // right
+        {
+            gameObjects[SKELETON].setDirection(RIGHT);
+        }
+        else if (e.keyCode === 40) // down
+        {
+            gameObjects[SKELETON].setDirection(DOWN);
+        }
+    });
+</pre></p><p>We have to replace this code that uses arrows with the code that use created buttons to control the robot movement:</p><p><pre class="js_code">
+document.getElementById("up_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(UP);
+	});
+document.getElementById("down_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(DOWN);
+	});
+document.getElementById("left_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(LEFT);
+	});
+document.getElementById("right_btn").addEventListener('click', function (e){
+		gameObjects[SKELETON].setDirection(RIGHT);
+	});
+</pre></p><p>After all this operations we have obtained the Cordova version of chosen Canvas game.</p><p></p><div class="question"><p>
+  The buttons with arrows do not fit to the graphic style of the game, add some images of arrows and use them for control instead of the buttons.
+  Change the size of the background in order to have arrows above image green background.
+
+  The buttons with arrows do not fit to the graphic style of the game, add some images of arrows and use them for control instead of the buttons.
+  Change the size of the background in order to have arrows above image green background.
+</p></div><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

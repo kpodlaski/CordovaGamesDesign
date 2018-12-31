@@ -1,0 +1,102 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>Device capabilities</h1><p></p><p>The Cordova environment allows to create a mobile applications using html5 technology stack. However it is obvious that capabilities of the mobile device (smartphone, tablet) are not the same as the browser. In the Cordova all specific functionalities of the device are solved as plugins to the platform. For example in order to use camera functionality inside our game we have to add appropriate plugin to our project and then with additional js objects/methods we can control the camera build in the device. In this course we will cover how to use: camera, accelerometer/giroscope, gps. The information about actual plugins can be found in Cordova documentation <a href="https://cordova.apache.org/plugins/" target="_blank">https://cordova.apache.org/plugins/</a>.</p><p></p><h2>Camera</h2><p>
+As was mentioned in order to use a build in camera we have to add appropriate plugin. This plugin add to the cordova environment appropriate objects/methods that allow control of the camera via javascript operations <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html" target="_blank">Cordova camera plugin</a>. In order to add a plugin we have to invoke the following shell command inside the project folder</p><p><pre class="shell_code">
+cordova plugin add cordova-plugin-camera
+</pre></p><p>The camera will be visible as a special js object navigator.camera, this object will be initiated just before 'deviceready' event is fired. Suppose, we would like just to take a picture and show it on the screen of the phone.</p><p>Our html file will be very simple:</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_device_capabilities_in_cordova/code1.html"></pre></p><p>The js file have the form:</p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_device_capabilities_in_cordova/code1.js"></pre></p><p></p><div class="code_explained"><p>
+  The js file needs a little of explanation.
+  The object camera_options (line 9) defines the properties of the camera, for details see  <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html#cameracameraoptions--object" target="_blank">plugin documentation</a>. In order to take a photo one has to use method getPicture of navigator.camera (line 16) with appropriate callback functions for success and failure events.</p><p>  In the method onSuccess one can notice the strange value of image.src, this value is just a jpeg image encoded to base64 string representation. (line 22).</p><p></p></div><p>
+ </p><h3>QRCode in Cordova</h3><p></p><p> In many of contextual games a player is required to prove his achievement or position in external game context. This operation can be fulfilled via gps coordinates, or scanning nfc tag, qrcode. As we know how to take a picture, we can now use camera for scanning QRCode. There are many solutions that can help us decode QRCode into text, in this course we will use <a href="https://github.com/LazarSoft/jsqrcode" target="_blank">https://github.com/LazarSoft/jsqrcode</a>. This is a pure javascript library and works even in offline mode. In order to use Javascript QRCode scanner  we need to download .js files from repository  and include them to our project. For sake of readability we store them in the folder www/js/qrdecoder/ of our Cordova project and add lines below into index.html.</p><p><pre class="html_code">
+&lt;script type="text/javascript" src="js/qrdecoder/grid.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/version.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/detector.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/formatinf.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/errorlevel.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/bitmat.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/datablock.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/bmparser.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/datamask.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/rsdecoder.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/gf256poly.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/gf256.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/decoder.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/qrcode.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/findpat.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/alignpat.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/qrdecoder/databr.js"&gt;&lt;/script&gt;
+</pre></p><p>After that we change onSuccess method in our index.js into:
+<pre class="js_code">
+onSuccess: function(imageData) {
+		var image = $("#taken_photo")[0];//document.getElementById("taken_photo");
+		image.src = "data:image/jpeg;base64," + imageData;		qrcode.callback = function(decodedData) {
+			console.log(JSON.stringify(decodedData));
+		}
+		var _qr1 = qrcode.decode(image.src);	
+	}
+</pre></p><p></p><div class="code_explained"><p>
+  In the code we have only two new elements:
+  <ul>
+  </li><li> start decode operation qrcode.decode(image.src)
+  </li><li> definition of an anonymous callback function what to do with decoding result, in the example we just print the response on javascript console. As usual this method will be invoked when decoding process ends.
+  </li></ul>
+
+</p></div><p></p><p></p><div class="remark"><p>
+For testing purposes we need to create a QRCode with some information. There are many free solutions in the Internet, you need to find one using preferred search engine.
+
+For testing purposes we need to create a QRCode with some information. There are many free solutions in the Internet, you need to find one using preferred search engine.
+</p></div><p></p><p></p><h2>Accelerometer</h2><p>
+In some of the games developers prefer to use accelerometer or gyroscope as control mechanism. In previous versions of Cordova one needs to install device-motion plugin. However, lately the general <a href="https://www.w3.org/TR/2016/CR-orientation-event-20160818/" target="_blank">Device Motion and Orientation API</a>  has been implemented in all of the most important mobile platform and therefore, the Cordova plugin is depreciated. As is suggested we will use mentioned API.</p><p>As usual we will start from basic Cordova project and add accelerometer capabilities. In simple example, we will place the ball in the center of the screen and move it using Motion/Orientration capability.</p><p>The Motion and Orientation API provides two types of event deviceorientation and devicemotion, which of these two are available depend on the real device. In this example we will use only orientation - as this can be emulate in developer tools of chrome browser <a href="https://developers.google.com/web/tools/chrome-devtools/device-mode/#orientation" target="_blank">https://developers.google.com/web/tools/chrome-devtools/device-mode/#orientation</a>. The starting .html file will have the form:</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_device_capabilities_in_cordova/code2.html"></pre></p><p></p><div class="code_explained"><p>
+The html file is simple, the one extra element is the &lt;img id="ball_img"&gt; object for our moving ball. JavaScript code is divided into two parts, Ball.js, and index.js.
+
+The html file is simple, the one extra element is the &lt;img id="ball_img"&gt; object for our moving ball. JavaScript code is divided into two parts, Ball.js, and index.js.
+</p></div><p></p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_device_capabilities_in_cordova/Ball.js"></pre></p><p></p><div class="code_explained"><p>
+The class Ball contains logic of moving ball. The ball needs position coordinates (x,y) and velocity vector (vx,vy). As the ball will move inside closed area the values of maxX and maxY are needed. Additionally, the movement of this virtual ball need to be connected to the movement of ball image on the screen. The ball_img represents DOM img object. All this information will be provided via constructor (lines 3-11). Method startAnimation will start infinite loop of our scene animation. During an animation frame we update position using velocity (lines 18, 19), set the new position to bal_img object (lines 20, 21) and bouncing the ball from imaginary borders (lines 22, 23).
+
+The class Ball contains logic of moving ball. The ball needs position coordinates (x,y) and velocity vector (vx,vy). As the ball will move inside closed area the values of maxX and maxY are needed. Additionally, the movement of this virtual ball need to be connected to the movement of ball image on the screen. The ball_img represents DOM img object. All this information will be provided via constructor (lines 3-11). Method startAnimation will start infinite loop of our scene animation. During an animation frame we update position using velocity (lines 18, 19), set the new position to bal_img object (lines 20, 21) and bouncing the ball from imaginary borders (lines 22, 23).
+</p></div><p></p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_device_capabilities_in_cordova/code2.js"></pre></p><p></p><div class="code_explained"><p>
+ In the main .js file we initiate listeners for Orientation and Motion events (lines 9 and 10) and create Ball object with appropriate parameter values. At the end of onDeviceReady method we start ball animation (line 13).</p><p>Whenever the device change orientation the handleOrientation method is invoked, inside we change ball velocity vx, vy according to the orientation parameters alpha, beta (lines 21, 22). If the device support Motion API the method handleMotion will be invoked with device movement.
+Whenever the device change orientation the handleOrientation method is invoked, inside we change ball velocity vx, vy according to the orientation parameters alpha, beta (lines 21, 22). If the device support Motion API the method handleMotion will be invoked with device movement.
+</p></div><p></p><p></p><div class="question"><p>
+Please use the example maze game created in <a href="chapter_cordova_with_dereks_code.html#CordovaAndJavaScriptGame">here</a> and add the orientation style of control to the game.
+ and add the orientation style of control to the game.
+</p></div><p></p><p></p><h2>Geolocation</h2><p></p><p>As usual in order to have geolocation functionality we have to add appropriate plugin by running in the project folder the shell command:</p><p><pre class="shell_code">
+cordova plugin add cordova-plugin-geolocation
+</pre></p><p>This plugin adds to our Cordova environment three methods: getCurrentPosition, watchPosition, clearWatch of the navigator.geolocation object (see <a href="https://cordova.apache.org/docs/en/8.x/reference/cordova-plugin-geolocation/" target="_blank">documentation</a>). The first method is used for one time check of the location of the device. The second one can be use to start semi-continuous watching, the watching invoke an event whenever the position changes. The last method stops the watching activity.</p><p>As usual let us start with basic Cordova project with simple html:</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_device_capabilities_in_cordova/code3.html"></pre></p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_device_capabilities_in_cordova/code3.js"></pre></p><p></p><div class="code_explained"><p>
+The .html is very simple and no explanations are needed. In the .js file we should notice the object that contains options for position detection location_options. In line 11 the one time location query is invoked, later in lines 13-15 the position watching is starting (with 1 second timeout). Watching activity should stop after 60 seconds (lines 16-20). Whenever the location is obtained onPositionSuccess method is invoked. Here we obtain position and show it to the user.
+
+The .html is very simple and no explanations are needed. In the .js file we should notice the object that contains options for position detection location_options. In line 11 the one time location query is invoked, later in lines 13-15 the position watching is starting (with 1 second timeout). Watching activity should stop after 60 seconds (lines 16-20). Whenever the location is obtained onPositionSuccess method is invoked. Here we obtain position and show it to the user.
+</p></div><p></p><p></p><div class="question"><p>
+  In the Cordova <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html" target="_blank">documentation</a> of Geolocation  reader can find a few examples of its usage (Weather forecast, Google Maps with location, find poi or pictures nearby. Please try them yourself.
+
+  In the Cordova <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html" target="_blank">documentation</a> of Geolocation  reader can find a few examples of its usage (Weather forecast, Google Maps with location, find poi or pictures nearby. Please try them yourself.
+</p></div><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

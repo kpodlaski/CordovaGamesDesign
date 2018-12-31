@@ -1,3 +1,4 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 class VJoy {
 	
 	constructor(canvas, ball, scale){

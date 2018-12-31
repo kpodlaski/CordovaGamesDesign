@@ -1,12 +1,12 @@
 \chapter{Introduction to jQuery }
 
-Before we start with Mobile Application development let us first introduce a very well known and useful library jQuery. Here we will cover some basics of jQuery library and how to use it for simple internet queries. The jQuery library basically can be used to do following operations:
+Before we start with mobile application development let us first introduce a very well known and useful library jQuery. Here we will cover some basics of jQuery library and how to use it for simple internet queries. The jQuery library basically can be used to do following operations:
 \begin{itemize}
 \item Manipulation of HTML/DOM elements in a web application.
 \item Manipulation of CSS properties/elements in a web application.
-\item Operations connected to HTML events.
-\item Simple effects and animations in a web application.
-\item AJAX operations.
+\item Create/add Listeners to HTML events.
+\item Create simple effects and animations in a web application.
+\item Invoke and receive AJAX queries.
 \end{itemize}
 
 
@@ -14,8 +14,8 @@ Before we start with Mobile Application development let us first introduce a ver
 \section{Include jQuery into a project}
 The jQuery can be included int our project in two simple ways:
 \begin{itemize}
-\item As external resource,
-\item As internal resource,
+\item as external resource,
+\item as internal resource,
 \end{itemize}
 
 The difference is only on loading time and requirements of available internet connectivity.
@@ -28,19 +28,20 @@ The difference is only on loading time and requirements of available internet co
 <script type="text/javascript"
     src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js">
 </script>
+
 <!-- Use Internal copy of jQuery library -->
 <script type="text/javascript"
     src="js/jquery-3.3.1.min.js">
 </script>
 \end{html}
-As for Cordova javascript elements we will put one of this at the end of <body> section of web page. At this moment 3.3.1 is the newest version of jQuery, however everybody can use the version of own choose. The library files are usually available in two versions jquery-3.3.1.js and jquery-3.3.1.min.js, the former is bigger and is made especially for developers to analyse while the latter is smaller and unreadable for people because all unneeded space characters are omitted, this version is preferred as it requires shorter time to load and smaller bandwidth.
+It is better to add <script> tag at the  end of <body> section of web page. At this moment 3.3.1 is the newest version of jQuery, however everybody can use the version of own choose. The library files are usually available in two versions jquery-3.3.1.js and jquery-3.3.1.min.js, the former is bigger and is made especially for developers to analyse while the latter is smaller and unreadable for people because all unneeded space characters are omitted, therefore this version is preferred as it requires shorter time to load and smaller bandwidth.
 
 \section{Selector operator}
-One of the most important element introduced in jQUery is selection operator \$, this is an shortcut to original javascript selection methods like getElementById or querySelector.
+One of the most important element introduced in jQuery is selection operator \$, this is an shortcut to original javascript selection methods like getElementById or querySelector.
 
 \jsfile{chapters/code_samples/chapter_jquery_intro/code1.js}
 
-With use of selector we can easily operate on DOM elements of our web pages. DOM - Document Object Model - an object representation of html document and its elements. However, we have to remember jQuery selector is not exactly document.getElementById operation, by default selector wraps all elements that fits the pattern so it is more like the list of appropriate objects than a single object. That means selector has no direct access to all object methods. In order to get a DOM object from selector we should use direct request of list element like in the following code:
+With use of selector, we can easily operate on DOM elements of our web pages. DOM - \textbf{D}ocument \textbf{O}bject \textbf{M}odel - an object representation of html document and its elements. However, we have to remember that jQuery selector is not exactly document.getElementById operation. By default selector wraps all elements that fits the pattern so it is more like the list of appropriate objects than a single object. That means selector has no direct access to all object methods. In order to get a DOM object from selector we should use direct request of list element like in the following code:
 
 \begin{js}
 var el = document.getElementById("some_id");
@@ -50,23 +51,27 @@ var el = $("#some_id")[0];
 
 
 \section{Add simple actions when page is load}
-When a selector gives an object we can bind operations to events connected with this object. For example object "document" - that represents the web page have an event onLoad. This event is fired whenever  the browser finish loading page with all required additional files.
+When a selector gives an object we can bind operations to events connected with this object. For example object "document" - that represents the web page have an event 'load'. This event is fired whenever  the browser finish loading page with all required additional files.
 
 \htmlfile{chapters/code_samples/chapter_jquery_intro/code2.html}
 
+\begin{remark}
+Just for simplicity our js code is simply included inside .html file. In the real word it is better to save that in external .js file and include to the page using <script> tag. \begin{warning} All .js files that uses jQuery should be included after the jQuery library.\end{warning}
+\end{remark}
+
 \begin{explain}
-Just for simplicity this time all js code was simply included inside .html file. In the line 10 we can see selector \$('document') and then an definition what should happen when page is 'ready' event is fired.
+In the line 12 we can see the selector \$('document') and a definition what should happen when page is 'ready' i.e. when 'load' event is fired.
 \begin{js}
 	$(document).ready(
 \end{js}
 
-Inside "ready(...)" we define a new anonymous function that will be bind to 'ready' event. The function is anonymous as it is a method that will be used in one place and no name is needed. Anonymous functions are usually defined as:
+Inside "ready(...)" we define a new anonymous function that will be bind to 'ready' event. The function is anonymous as it is a method that will be used in one place and no name is needed. Anonymous functions are usually defined like the examples below:
 \begin{js}
  function() { ...} //anonymous function without parameters
  function(par1, par2) { ...} //anonymous function with two parameters par1 and par2
 \end{js}
 
-In this new function in the line 13 we can see that to all <button> elements we add a function that hides this button. An operation .hide comes from jQuery and allow to make elements invisible.
+In this anonymous function in the line 13 we select all <button> elements, and create an action connected with 'click' event. The 'click' event will be invoked whenever user clicks the button. In the code (line 15), we ordered to hide the clicked element (button). An operation .hide comes from jQuery and allow to make elements invisible.
 
 \begin{js}
 $("button").click(function(){
@@ -74,7 +79,7 @@ $("button").click(function(){
 });
 \end{js}
 
-In the result when page is loaded the actions are added to all three buttons separately. When each of the buttons is clicked it hides.
+In the result when page is loaded the actions are added to all three buttons separately. When any of the buttons is clicked it hides.
 
 
 \end{explain}
@@ -100,12 +105,12 @@ Add the following functionalities:
 \end{itemize}
 \end{extercises}
 
-In the next example we will see that a similar jQuery method called toggle, can be used show the visible elements and hide invisible ones.
+In the next example we will introduce a similar jQuery method called toggle, this operation can be used show the visible elements and hide invisible ones.
 
 \htmlfile{chapters/code_samples/chapter_jquery_intro/code4.html}
 
 \begin{explain}
-At the start one of the <p> elements is hidden as in line 14  we set style to display:none state.
+After the page loads, one of the <p> elements is hidden because in line 14  we set style to display:none.
 \begin{html}
 <p id="Stanza2" style="display:none">
 \end{html}

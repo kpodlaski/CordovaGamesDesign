@@ -19,6 +19,19 @@
 
 \newenvironment{header}{\bgroup\Large}{\egroup}
 
+%\usepackage[skins]{tcolorbox}
+
+\newtcolorbox{titledframe}[2][]{%
+  enhanced,colback=white,colframe=black,coltitle=black,
+  %sharp corners,
+  boxrule=0.4pt,
+  %fonttitle=\itshape,
+  attach boxed title to top left={yshift=-0.3\baselineskip-0.4pt,xshift=2mm},
+  boxed title style={tile,size=minimal,left=0.5mm,right=0.5mm,
+    colback=white,before upper=\strut},
+  title=#2,#1
+}
+
 \newenvironment{code2}{
     \par\medskip
     \begin{framed}
@@ -31,24 +44,35 @@
 
 \newenvironment{explain}{
     \par\medskip
-    \begin{framed}
+    \begin{titledframe}{Code Explained}
     \noindent\ignorespaces
 }
 {
-    \end{framed}
+    \end{titledframe}
     \medskip
 }
 
 \newenvironment{extercises}{
     \par\medskip
-    \begin{framed}
+    \begin{titledframe}{Extercises}
     \noindent\ignorespaces
 }
 {
-    \end{framed}
+    \end{titledframe}
     \medskip
 }
 
+\newenvironment{remark}{
+    \par\medskip
+    \begin{titledframe}{Remark}
+    \noindent\ignorespaces
+}
+{
+    \end{titledframe}
+    \medskip
+} 
+
+\newenvironment{warning}{\bgroup \color{red} }{\egroup}
 
 \definecolor{maroon}{rgb}{0.5,0,0}
 \definecolor{DarkOliveGreen}{rgb}{0.33,0.42,0.18}
@@ -232,14 +256,5 @@
   listing file=#2
 }
 
-\newenvironment{warning}{\bgroup \color{red} }{\egroup}
 
-\newenvironment{remark}{
-    \par\medskip
-    \begin{framed}
-    \noindent\ignorespaces
-}
-{
-    \end{framed}
-    \medskip
-} 
+

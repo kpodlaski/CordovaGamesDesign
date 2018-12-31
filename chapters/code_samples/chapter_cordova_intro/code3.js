@@ -1,3 +1,5 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
+/* based partially on Apache Cordova default app  */
 var app = {
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);

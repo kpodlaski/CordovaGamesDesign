@@ -1,3 +1,4 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 $(document).ready(function(){
 	
 	$("#getOne_btn").click(function(){

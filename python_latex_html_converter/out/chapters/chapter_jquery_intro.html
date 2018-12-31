@@ -1,0 +1,132 @@
+<!doctype html>
+<html><!-- InstanceBegin template="/templates/notes.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<META http-equiv="Content-Language" content="EN" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name = "Description" content="Erasmus+ Genius project" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="Erasmus+ Genius html canvas javascript games development" />
+<meta name = "Robots" content="index,follow" />
+<meta name = "revisit-after" content="6 days" />
+<title>Genius</title>
+<link rel="icon" type="image/jpeg" href="../../images/dkit_logo.png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="../css_styles/notesStyle.css" rel="stylesheet" type="text/css">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<p class="copyright">Genius</p>
+<!-- InstanceBeginEditable name="pageContents" -->
+
+
+<h1>Introduction to jQuery </h1><p></p><p>Before we start with mobile application development let us first introduce a very well known and useful library jQuery. Here we will cover some basics of jQuery library and how to use it for simple internet queries. The jQuery library basically can be used to do following operations:
+<ul>
+</li><li> Manipulation of HTML/DOM elements in a web application.
+</li><li> Manipulation of CSS properties/elements in a web application.
+</li><li> Create/add Listeners to HTML events.
+</li><li> Create simple effects and animations in a web application.
+</li><li> Invoke and receive AJAX queries.
+</li></ul></p><p></p><p></p><h2>Include jQuery into a project</h2><p>
+The jQuery can be included int our project in two simple ways:
+<ul>
+</li><li> as external resource,
+</li><li> as internal resource,
+</li></ul></p><p>The difference is only on loading time and requirements of available internet connectivity.
+<pre class="html_code">
+&lt;!-- Use External jQuery from Google CDN --&gt;
+&lt;script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;
+&lt;/script&gt;
+&lt;!-- Use External jQuery from Microsoft CDN --&gt;
+&lt;script type="text/javascript"
+    src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"&gt;
+&lt;/script&gt;&lt;!-- Use Internal copy of jQuery library --&gt;
+&lt;script type="text/javascript"
+    src="js/jquery-3.3.1.min.js"&gt;
+&lt;/script&gt;
+</pre>
+It is better to add &lt;script&gt; tag at the  end of &lt;body&gt; section of web page. At this moment 3.3.1 is the newest version of jQuery, however everybody can use the version of own choose. The library files are usually available in two versions jquery-3.3.1.js and jquery-3.3.1.min.js, the former is bigger and is made especially for developers to analyse while the latter is smaller and unreadable for people because all unneeded space characters are omitted, therefore this version is preferred as it requires shorter time to load and smaller bandwidth.</p><p></p><h2>Selector operator</h2><p>
+One of the most important element introduced in jQuery is selection operator $, this is an shortcut to original javascript selection methods like getElementById or querySelector.</p><p><pre class="from_file" type="jsfile" src="code_samples/chapter_jquery_intro/code1.js"></pre></p><p>With use of selector, we can easily operate on DOM elements of our web pages. DOM - <b>D</b>ocument <b>O</b>bject <b>M</b>odel - an object representation of html document and its elements. However, we have to remember that jQuery selector is not exactly document.getElementById operation. By default selector wraps all elements that fits the pattern so it is more like the list of appropriate objects than a single object. That means selector has no direct access to all object methods. In order to get a DOM object from selector we should use direct request of list element like in the following code:</p><p><pre class="js_code">
+var el = document.getElementById("some_id");
+//Equivalent operation with use of jQuery selector
+var el = $("#some_id")[0];
+</pre></p><p>
+</p><h2>Add simple actions when page is load</h2><p>
+When a selector gives an object we can bind operations to events connected with this object. For example object "document" - that represents the web page have an event 'load'. This event is fired whenever  the browser finish loading page with all required additional files.</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/code2.html"></pre></p><p></p><div class="remark"><p>
+Just for simplicity our js code is simply included inside .html file. In the real word it is better to save that in external .js file and include to the page using &lt;script&gt; tag. <span class="warning"> All .js files that uses jQuery should be included after the jQuery library.</span>
+
+</p></div><p></p><p></p><div class="code_explained"><p>
+In the line 10 we can see the selector $('document') and a definition what should happen when page is 'ready' i.e. when 'load' event is fired.
+<pre class="js_code">
+	$(document).ready(
+</pre></p><p>Inside "ready(...)" we define a new anonymous function that will be bind to 'ready' event. The function is anonymous as it is a method that will be used in one place and no name is needed. Anonymous functions are usually defined like the examples below:
+<pre class="js_code">
+ function() { ...} //anonymous function without parameters
+ function(par1, par2) { ...} //anonymous function with two parameters par1 and par2
+</pre></p><p>In this anonymous function in the line 13 we select all &lt;button&gt; elements, and create an action connected with 'click' event. The 'click' event will be invoked whenever user clicks the button. In the code (line 15), we ordered to hide the clicked element (button). An operation .hide comes from jQuery and allow to make elements invisible.</p><p><pre class="js_code">
+$("button").click(function(){
+    $(this).hide();
+});
+</pre></p><p>In the result when page is loaded the actions are added to all three buttons separately. When any of the buttons is clicked it hides.</p><p>
+
+</p></div><p></p><p>It it obvious that if in jQuery we have hide operation, there have to be also a show one</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/code3.html"></pre></p><p></p><div class="code_explained"><p>
+We add anonymous function to click event for both buttons "btn1" and "btn2" in the lines 15 and 19 respectively. in both of this methods we show or hide the element &lt;img&gt;.
+
+We add anonymous function to click event for both buttons "btn1" and "btn2" in the lines 15 and 19 respectively. in both of this methods we show or hide the element &lt;img&gt;.
+</p></div><p></p><p></p><div class="question"><p>
+Starting with the webpage of the form</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/ex1.html"></pre></p><p>Add the following functionalities:
+<ul>
+</li><li> When user click on the button "Show Julius Caesar" the photo of the Caesar is shown
+</li><li> When user click on the button "Show All" every hidden elements are shown
+</li><li> When user click on the button "Hide all again" all elements back to the original state.
+</li></ul>
+
+</p></div><p></p><p>In the next example we will introduce a similar jQuery method called toggle, this operation can be used show the visible elements and hide invisible ones.</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/code4.html"></pre></p><p></p><div class="code_explained"><p>
+After the page loads, one of the &lt;p&gt; elements is hidden because in line 14  we set style to display:none.
+<pre class="html_code">
+&lt;p id="Stanza2" style="display:none"&gt;
+</pre>
+Here in the line 27 we invoke toggle method on all &lt;p&gt; element. This will toggle elements between two states hidden and shown.
+
+Here in the line 27 we invoke toggle method on all &lt;p&gt; element. This will toggle elements between two states hidden and shown.
+</p></div><p></p><p>Additional jQuery actions like slideDown, slideUp, slideToggle allows similar operations but as animated action not instant ones.</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/code5.html"></pre></p><p></p><div class="question"><p>
+Within the last code change methods slideDown, slideUp, slideToggle into new operations: fadeIn, fadeOut, fadeToggle.
+
+Within the last code change methods slideDown, slideUp, slideToggle into new operations: fadeIn, fadeOut, fadeToggle.
+</p></div><p></p><p></p><div class="question"><p>
+All of the animation operations can have additional time parameters (in milliseconds), test how it changes the original behaviour.
+<pre class="js_code">
+.hide(300),
+.slideDown(300),
+.fadeOut(300)
+</pre></p><p>
+There are also predefined speeds 'slow', 'fast', 'normal':
+<pre class="js_code">
+.show('fast')
+</pre>
+
+</p></div><p></p><p></p><h3>Other actions</h3><p>
+jQuery introduces more operations like click, these are dblclick, mouseover, mouseout. And additionally more sophisticated animation driven by changes in the style of the element</p><p><pre class="from_file" type="htmlfile" src="code_samples/chapter_jquery_intro/code6.html"></pre></p><p></p><div class="code_explained"><p>
+  As we can see during animate operation the browser create an animation between two styles
+  <pre class="js_code">
+    width: "55%",
+    opacity: 0.7,
+    fontSize: "2em",
+  </pre>
+   and
+  <pre class="js_code">
+    fontSize: "1em",
+  </pre></p><p>This animation requires change of width, size of the font and opacity.
+This animation requires change of width, size of the font and opacity.
+</p></div><p>
+
+
+<!-- InstanceEndEditable -->
+<p class="copyright">Copyright Genius.</p>
+<script type="text/javascript" src="../javascripts/addListings.js"></script>
+</body>
+</html>

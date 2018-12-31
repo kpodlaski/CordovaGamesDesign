@@ -1,3 +1,4 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 class DynamicVJoy extends VJoy{
 	constructor(canvas, ball, scale){
 		super(canvas,ball,scale);

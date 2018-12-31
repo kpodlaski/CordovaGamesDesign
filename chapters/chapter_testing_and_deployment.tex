@@ -1,6 +1,6 @@
 \chapter{Testing and deployment}
 
-The testing and deployment of Cordova application is not sophisticated task. At first we can always use a browser platform. In this way we can easily test most of the applications, and using chrome and its developer tools we can test most functionalities of our application. When the developer thinks about more sophisticated issues he/she can always use ripple simulator. For that we just need to install the simulator using npm:
+The testing and deployment of Cordova application is not a sophisticated task. At first we can always use a browser platform. In this way we can easily test most of the applications, and using chrome and its developer tools we can test most functionalities of our application. When the developer thinks about more sophisticated issues he/she can always use ripple simulator. For that we just need to install the simulator using npm:
 
 \begin{shell}
 npm install -g cordova-simulate
@@ -14,8 +14,9 @@ simulate android
 \end{shell}
 
 or for iOS simulation
-  
+
 \begin{shell}
+cordova platform add ios
 simulate ios
 \end{shell}
 
@@ -39,7 +40,7 @@ The exemplary output can look like this:
 
 After a rather long output we should see the information that our apk file was created:
 \begin{shelloutput}
-BUILD SUCCESSFUL in 3m 26s 
+BUILD SUCCESSFUL in 3m 26s
 48 actionable tasks: 48 executed
 Built the following apk(s): D:\Users\Krzysztof Podlaski\Documents\Uniwerek\GENIUS\didactic_courses\Cordova_mobile_games\code\UIExamples\platforms\android\app\build\outputs\apk\debug\app-debug.apk
 \end{shelloutput}

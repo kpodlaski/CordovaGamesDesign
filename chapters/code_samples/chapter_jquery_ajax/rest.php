@@ -1,3 +1,4 @@
+/* Author: Krzysztof Podlaski, University of Lodz */
 <?php
 header("Content-Type:application/json");
 require "score.php";

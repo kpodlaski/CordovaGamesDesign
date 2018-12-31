@@ -1,7 +1,6 @@
-
 \chapter{Apache Cordova}
 
-The \href{https://cordova.apache.org}{Apache Cordova} is one of the best known technologies to create modern cross-platform mobile applications. This framework allows to create applications using standard HTML5 technologies stack in order to build mobile apps for Android and iOS mobile devices. The requirements for developer is the knowledge of classical technologies like html, css and JavaScript.
+The \href{https://cordova.apache.org}{Apache Cordova} is one of the best known technologies to create modern cross-platform mobile applications. This framework allows to create applications using standard HTML5 technology stack in order to build mobile apps for Android and iOS mobile devices. It is required from developer to have basic competencies in classical technologies like html, css and javascript.
 
 In order to begin work with Cordova environment we have to install \href{http://nodejs.org}{Node.js} application. \begin{warning} This will require administrator privileges on the system.\end{warning} The Node.js environment contains npm - nodejs packet manager that allow to install new packages/application into our system. Using npm we can easily install Cordova by writing in command line:
 
@@ -9,7 +8,7 @@ In order to begin work with Cordova environment we have to install \href{http://
 npm install -g cordova
 \end{shell}
 
-This -g switch will install cordova for all users, if one wants to install Cordova only for active user we can omit -g parameter.
+This -g switch will install cordova for all users, if someone wants to install Cordova only for active user have to omit -g parameter.
 
 Now we are ready to create first Cordova app, for that let us create a new directory somewhere in the system and go into this folder.
 
@@ -23,9 +22,9 @@ Now we should invoke command:
 cordova create FirstCordovaApp
 \end{shell}
 
-This will create an folder with prepared template of Cordova application. The prepared folder contain few subfolders the most important from the point of view of game developer is www. The rest of subfolders we can treat as internal Cordova folder and let them be.
+This will create a folder with prepared template of Cordova application. The prepared folder contains a few subfolders the most important from the point of view of game developer is www. The rest of subfolders we can treat as internal Cordova folder and let them be.
 
-Just for start we can try to run the project, first we have to add a platform - i.e. the platform we would like to use as deployment machine. In Cordova we have many platforms to choose in this course we will use only Browser for first level debugging, and Android or iOS for second level debugging and final deployment.
+Just for start we can try to run the project, first we have to add a platform (i.e. the platform we would like to use as deployment machine). In Cordova we have many platforms to choose in this course we will use only Browser for first level debugging, and Android or iOS for second level debugging and final deployment.
 
 \begin{shell}
 cd FirstCordovaApp
@@ -38,7 +37,7 @@ And run the created simple starting project
 cordova run browser
 \end{shell}
 
-We should see some information in the terminal and our default browser should open an address \url{http:\\localhost:8000/index.html}. We will see simple page with Cordova logo and a text: device is ready.
+We should see some information in the terminal and our default browser should open an address \url{http://localhost:8000/index.html}. We will see simple page with Cordova logo and a text: device is ready.
 
 Now let us look what is a content of www folder and what lines in the code makes the browser to show this screen \ref{fig.basic_app}.
 
@@ -62,12 +61,12 @@ When we open index.html file we will notice the main two parts contained in <hea
 </body>
 \end{html}
 
-W can notice few things:
+W can notice a few things:
 \begin{explain}
 \begin{itemize}
 \item The JavaScript files are added at the end of the <body> part. This is connected with the order of loading elements in html, and as .js files can operate on html elements it is better to first build these elements before start actions programmed in .js files.
 
-\item We should remember that \begin{warning}cordova.js\end{warning} has to be always the firs script
+\item We should remember that \begin{warning}cordova.js\end{warning} has to be always the first script
 
 \item All elements of the web page are contained in one <div class="app"> element
 
@@ -82,19 +81,19 @@ Let us now look into js/index.js file
 \jsfile{chapters/code_samples/chapter_cordova_intro/code3.js}
 
 \begin{explain}
-How it works: when the page is finally loaded the Cordova environment fire an event 'deviceready', this implies that bind method onDeviceReady is invoked. In the result the method receivedEvent is started with appropriate value of parameter id. In this method the elements with class "listening" becomes invisible while the one with "received" becomes visible.
+How it works: when the page is finally loaded the Cordova environment fire an event 'deviceready', this implies that bind method onDeviceReady is invoked. In the result the method receivedEvent is started with appropriate value of parameter id. In this method the elements with class "listening" becomes invisible while the ones with "received" becomes visible.
 
 Explanation line by line:
 \begin{description}
-\item{line 3:} As we can see in the line 3 the method onDeviceReady is bind to the event 'deviceready'.
-\item{line 7:} Run method receivedEvent with parameter id = 'deviceready'
-\item{line 11:} Find in the html document the element with id = 'deviceready', store it as parentElement
-\item{line 12:} Find all child nodes of parentElement the ones with class "listening", store it as listeningElement
-\item{line 13:} Find all child nodes of parentElement the ones with class "received", store it as receivingElement
-\item{line 15:} Set style of element listeningElement to display:none, i.e. hide if it is visible on the screen
-\item{line 16:} Set style of element receivedElement to display:block, i.e. show if it is not visible on the screen
-\item(line 18:) Print a debugging information to JavaScript console.
-\item{line 22:} The function initialize of the object app is invoked when javascript is loaded.
+\item{line 5:} As we can see in the line 3 the method onDeviceReady is bind to the event 'deviceready', this.onDeviceReady is just an reference to the method onDeviceReady of the object app, the second this reference in .bind(this), means that when the method will be invoked when event 'ondeviceready' is fired the app (this) object will be bind as owner of event handler. The binding of owner of event handler is important, wrong binding can lead to errors in the aplication.
+\item{line 9:} Run method receivedEvent with parameter id = 'deviceready'
+\item{line 13:} Find in the html document the element with id = 'deviceready', store it as parentElement
+\item{line 14:} Find all child nodes of parentElement with class "listening", store them as listeningElement
+\item{line 15:} Find all child nodes of parentElement with class "received", store them as receivingElement
+\item{line 17:} Set style of the elements in listeningElement to display:none, i.e. hide if it is visible on the screen
+\item{line 18:} Set style of the elements in receivedElement to display:block, i.e. show if it is not visible on the screen
+\item{line 20:} Print a debugging information to JavaScript console.
+\item{line 24:} The function initialize of the object app is invoked when javascript is loaded.
 \end{description}
 \end{explain}
 
@@ -113,5 +112,8 @@ As was mentioned Cordova environment uses a special event 'deviceready'. By defa
 
 It should be noted that Cordova prefers SPA architecture (Single Page Applications) i.e. there is only one url address, all changes of the interface are done within one javascript file and using ajax queries.
 
+\begin{remark}
+If someone do not want to use command line and nodejs environment, there is always a possibility to use Cordova within Visual Studio environment \url{https://visualstudio.microsoft.com/vs/features/cordova/}. However this can lead to duplicate android sdk environment as Visual Studio prefers to use everything internal.
+\end{remark}
 
 

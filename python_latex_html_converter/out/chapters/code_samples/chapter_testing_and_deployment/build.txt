@@ -1,0 +1,148 @@
+Android Studio project detected
+ANDROID_HOME=D:\Programowanie\Narzedzia\Android\sdk
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0
+studio
+:wrapper
+
+BUILD SUCCESSFUL
+
+Total time: 34.033 secs
+Subproject Path: CordovaLib
+Subproject Path: app
+Starting a Gradle Daemon, 1 incompatible and 1 stopped Daemons could not be reused, use --status for details
+Download https://maven.google.com/com/android/tools/build/gradle/3.0.1/gradle-3.0.1.pom
+Download https://maven.google.com/com/android/tools/build/gradle-core/3.0.1/gradle-core-3.0.1.pom
+Download https://maven.google.com/com/android/databinding/compilerCommon/3.0.1/compilerCommon-3.0.1.pom
+Download https://maven.google.com/com/android/tools/build/gradle-api/3.0.1/gradle-api-3.0.1.pom
+Download https://maven.google.com/com/android/tools/build/builder/3.0.1/builder-3.0.1.pom
+Download https://maven.google.com/com/android/tools/lint/lint/26.0.1/lint-26.0.1.pom
+Download https://maven.google.com/com/android/tools/external/org-jetbrains/uast/26.0.1/uast-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/transform-api/2.0.0-deprecated-use-gradle-api/transform-api-2.0.0-deprecated-use-gradle-api.pom
+Download https://maven.google.com/com/android/tools/sdk-common/26.0.1/sdk-common-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/manifest-merger/26.0.1/manifest-merger-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/builder-test-api/3.0.1/builder-test-api-3.0.1.pom
+Download https://maven.google.com/com/android/tools/sdklib/26.0.1/sdklib-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/builder-model/3.0.1/builder-model-3.0.1.pom
+Download https://maven.google.com/com/android/tools/ddms/ddmlib/26.0.1/ddmlib-26.0.1.pom
+Download https://maven.google.com/com/android/tools/common/26.0.1/common-26.0.1.pom
+Download https://maven.google.com/com/android/tools/analytics-library/protos/26.0.1/protos-26.0.1.pom
+Download https://maven.google.com/com/android/tools/analytics-library/shared/26.0.1/shared-26.0.1.pom
+Download https://maven.google.com/com/android/tools/analytics-library/tracker/26.0.1/tracker-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/apksig/3.0.1/apksig-3.0.1.pom
+Download https://maven.google.com/com/android/tools/lint/lint-checks/26.0.1/lint-checks-26.0.1.pom
+Download https://maven.google.com/com/android/databinding/baseLibrary/3.0.1/baseLibrary-3.0.1.pom
+Download https://maven.google.com/com/android/tools/dvlib/26.0.1/dvlib-26.0.1.pom
+Download https://maven.google.com/com/android/tools/layoutlib/layoutlib-api/26.0.1/layoutlib-api-26.0.1.pom
+Download https://maven.google.com/com/android/tools/repository/26.0.1/repository-26.0.1.pom
+Download https://maven.google.com/com/android/tools/lint/lint-api/26.0.1/lint-api-26.0.1.pom
+Download https://maven.google.com/com/android/tools/external/com-intellij/intellij-core/26.0.1/intellij-core-26.0.1.pom
+Download https://maven.google.com/com/android/tools/annotations/26.0.1/annotations-26.0.1.pom
+Download https://maven.google.com/com/android/tools/build/gradle-api/3.0.1/gradle-api-3.0.1.jar
+Download https://maven.google.com/com/android/tools/lint/lint/26.0.1/lint-26.0.1.jar
+Download https://maven.google.com/com/android/tools/external/org-jetbrains/uast/26.0.1/uast-26.0.1.jar
+Download https://maven.google.com/com/android/tools/build/gradle/3.0.1/gradle-3.0.1.jar
+Download https://maven.google.com/com/android/tools/lint/lint-api/26.0.1/lint-api-26.0.1.jar
+Download https://maven.google.com/com/android/tools/lint/lint-checks/26.0.1/lint-checks-26.0.1.jar
+Download https://maven.google.com/com/android/tools/build/gradle-core/3.0.1/gradle-core-3.0.1.jar
+Download https://maven.google.com/com/android/tools/build/builder/3.0.1/builder-3.0.1.jar
+Download https://maven.google.com/com/android/databinding/compilerCommon/3.0.1/compilerCommon-3.0.1.jar
+Download https://maven.google.com/com/android/tools/build/manifest-merger/26.0.1/manifest-merger-26.0.1.jar
+Download https://maven.google.com/com/android/tools/repository/26.0.1/repository-26.0.1.jar
+Download https://maven.google.com/com/android/tools/sdk-common/26.0.1/sdk-common-26.0.1.jar
+Download https://maven.google.com/com/android/tools/sdklib/26.0.1/sdklib-26.0.1.jar
+Download https://maven.google.com/com/android/tools/build/transform-api/2.0.0-deprecated-use-gradle-api/transform-api-2.0.0-deprecated-use-gradle-api.jar
+Download https://maven.google.com/com/android/tools/analytics-library/tracker/26.0.1/tracker-26.0.1.jar
+Download https://maven.google.com/com/android/tools/analytics-library/shared/26.0.1/shared-26.0.1.jar
+Download https://maven.google.com/com/android/tools/analytics-library/protos/26.0.1/protos-26.0.1.jar
+Download https://maven.google.com/com/android/tools/build/builder-model/3.0.1/builder-model-3.0.1.jar
+Download https://maven.google.com/com/android/tools/build/builder-test-api/3.0.1/builder-test-api-3.0.1.jar
+Download https://maven.google.com/com/android/tools/layoutlib/layoutlib-api/26.0.1/layoutlib-api-26.0.1.jar
+Download https://maven.google.com/com/android/tools/ddms/ddmlib/26.0.1/ddmlib-26.0.1.jar
+Download https://maven.google.com/com/android/tools/dvlib/26.0.1/dvlib-26.0.1.jar
+Download https://maven.google.com/com/android/tools/annotations/26.0.1/annotations-26.0.1.jar
+Download https://maven.google.com/com/android/tools/build/apksig/3.0.1/apksig-3.0.1.jar
+Download https://maven.google.com/com/android/tools/common/26.0.1/common-26.0.1.jar
+Download https://maven.google.com/com/android/databinding/baseLibrary/3.0.1/baseLibrary-3.0.1.jar
+Download https://maven.google.com/com/android/tools/external/com-intellij/intellij-core/26.0.1/intellij-core-26.0.1.jar
+publishNonDefault is deprecated and has no effect anymore. All variants are now published.
+Checking the license for package Android SDK Platform 27 in D:\Programowanie\Narzedzia\Android\sdk\licenses
+License for package Android SDK Platform 27 accepted.
+Preparing "Install Android SDK Platform 27 (revision: 3)".
+"Install Android SDK Platform 27 (revision: 3)" ready.
+Installing Android SDK Platform 27 in D:\Programowanie\Narzedzia\Android\sdk\platforms\android-27
+"Install Android SDK Platform 27 (revision: 3)" complete.
+"Install Android SDK Platform 27 (revision: 3)" finished.
+The Task.leftShift(Closure) method has been deprecated and is scheduled to be removed in Gradle 5.0. Please use Task.doLast(Action) instead.
+        at build_us1j1jtvs47krihhqf05ak23.run(D:\Users\Krzysztof Podlaski\Documents\Uniwerek\GENIUS\didactic_courses\Cordova_mobile_games\code\UIExamples\platforms\android\app\build.gradle:148)
+:CordovaLib:preBuild UP-TO-DATE
+:CordovaLib:preDebugBuild UP-TO-DATE
+:CordovaLib:compileDebugAidl
+:CordovaLib:compileDebugRenderscript
+:CordovaLib:checkDebugManifest
+:CordovaLib:generateDebugBuildConfig
+:CordovaLib:prepareLintJar
+:CordovaLib:generateDebugResValues
+:CordovaLib:generateDebugResources
+:CordovaLib:packageDebugResources
+:CordovaLib:platformAttrExtractor
+:CordovaLib:processDebugManifest
+:CordovaLib:javaPreCompileDebug
+:CordovaLib:processDebugJavaRes NO-SOURCE
+:app:preBuild UP-TO-DATE
+:app:preDebugBuild
+:app:compileDebugAidl
+:CordovaLib:packageDebugRenderscript NO-SOURCE
+:app:compileDebugRenderscript
+:app:checkDebugManifest
+:app:generateDebugBuildConfig
+:app:prepareLintJar
+:app:generateDebugResValues
+:app:generateDebugResources
+:app:mergeDebugResources
+:app:createDebugCompatibleScreenManifests
+:app:processDebugManifest
+:app:splitsDiscoveryTaskDebug
+:app:compileDebugNdk NO-SOURCE
+:CordovaLib:mergeDebugShaders
+:CordovaLib:compileDebugShaders
+:CordovaLib:generateDebugAssets
+:CordovaLib:mergeDebugAssets
+:app:mergeDebugShaders
+:app:compileDebugShaders
+:app:generateDebugAssets
+:app:mergeDebugAssets
+:CordovaLib:compileDebugNdk NO-SOURCE
+:CordovaLib:mergeDebugJniLibFolders
+:CordovaLib:transformNativeLibsWithMergeJniLibsForDebug
+:CordovaLib:transformNativeLibsWithStripDebugSymbolForDebug
+:CordovaLib:transformNativeLibsWithIntermediateJniLibsForDebug
+:app:mergeDebugJniLibFolders
+:app:processDebugJavaRes NO-SOURCE
+:app:validateSigningDebug
+:CordovaLib:processDebugResources
+:CordovaLib:generateDebugSources
+:CordovaLib:compileDebugJavaWithJavacNote: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+:CordovaLib:transformClassesAndResourcesWithPrepareIntermediateJarsForDebug
+:app:processDebugResources
+:app:generateDebugSources
+:app:javaPreCompileDebug
+:app:compileDebugJavaWithJavac
+:app:compileDebugSources
+:app:transformClassesWithStackFramesFixerForDebug
+:app:transformClassesWithDesugarForDebug
+:app:transformClassesWithDexBuilderForDebug
+:app:transformDexArchiveWithExternalLibsDexMergerForDebug
+:app:transformDexArchiveWithDexMergerForDebug
+:app:transformNativeLibsWithMergeJniLibsForDebug
+:app:transformNativeLibsWithStripDebugSymbolForDebug
+:app:transformResourcesWithMergeJavaResForDebug
+:app:packageDebug
+:app:assembleDebug
+:app:cdvBuildDebug
+
+BUILD SUCCESSFUL in 3m 26s
+48 actionable tasks: 48 executed
+Built the following apk(s):
+        D:\Users\Krzysztof Podlaski\Documents\Uniwerek\GENIUS\didactic_courses\Cordova_mobile_games\code\UIExamples\platforms\android\app\build\outputs\apk\debug\app-debug.apk
